@@ -62,6 +62,21 @@ python download_stars.py --rebuild-mapping
 README）都会写入 `stars_state.json`。下次再跑时，脚本只会处理**新增的**
 star，已经处理过的会自动跳过。
 
+### 分页短路（不会拉满所有页）
+
+GitHub 的 star 列表是按 star 时间**倒序**返回的（最新的在最前），新 star
+永远插在列表最前面。所以脚本拉取时，**只要遇到一整页全是已处理过的仓库，
+就立刻停止翻页**——后面的页必然也全是旧的，没必要再请求。
+
+| 场景 | 拉取页数 |
+| --- | --- |
+| 没有新 star | 1 页 |
+| 几个新 star（常见情况） | ~2 页 |
+| 大量新 star | 一直拉到第一个全已知页为止（不会漏） |
+
+对 1200 多个 star 的账号，平时增量跑从「拉满 13 页」降到「1～2 页」。
+若怀疑 state 和 GitHub 不同步、想强制拉完全部，加 `--full-scan`。
+
 常用工作流：
 
 ```bash
@@ -82,8 +97,9 @@ python download_stars.py --rebuild-mapping
 | `--limit N` | 一次最多下 N 个新的 star（默认 10）。配合 `--all` 时无效。 |
 | `--all` | 处理所有**未处理过**的 star。 |
 | `--delay SECONDS` | 每次 API 请求后等多少秒，默认 0.5（GitHub 限流保护）。 |
-| `--include-known` | 忽略 state，把所有 1206 个 star 重新处理一遍。 |
+| `--include-known` | 忽略 state，把所有 1206 个 star 重新处理一遍（会拉满所有页）。 |
 | `--reset-state` | 删掉 `stars_state.json` 再跑。和 `--include-known` 区别是 state 仍然会重建。 |
+| `--full-scan` | 关闭分页短路，强制拉取所有页。怀疑 state 与 GitHub 不同步时使用。 |
 | `--rebuild-mapping` | 不下载，只根据磁盘上已有的 `*.md` 重新生成 `stars_mapping.json`。 |
 
 ## `stars_mapping.json` 用法

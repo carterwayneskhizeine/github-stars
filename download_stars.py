@@ -12,6 +12,12 @@ successfully OR found to have no README) its `full_name` is recorded in
 `--reset-state` to start over from scratch, or `--include-known` to ignore
 the state and re-process everything.
 
+Pagination is **short-circuited**: starred repos come back newest-first, and
+new stars are always prepended, so once a whole page consists of repos we've
+already processed, every later page is known too and we stop fetching. In the
+common case (only a few new stars since the last run) this reads 1–2 pages
+instead of all of them. Pass `--full-scan` to force fetching every page.
+
 Usage:
     python download_stars.py                   # first 10 new stars
     python download_stars.py --all             # process every new star
@@ -74,19 +80,43 @@ def run_gh(args: list[str], retries: int = 5) -> str:
     raise last_err  # type: ignore[misc]
 
 
-def list_starred_repos() -> list[dict]:
-    """Fetch all starred repos for the authenticated user (most recent first)."""
+def list_starred_repos(known: set[str] | None = None) -> list[dict]:
+    """Fetch starred repos for the authenticated user (most recent first).
+
+    The GitHub endpoint is sorted by starred_at descending, so the newest
+    stars lead. If `known` (the set of already-processed full_names) is
+    provided and non-empty, we stop as soon as a whole page is already
+    known — every page after that point is known too, since new stars are
+    always prepended to the front of the list. An empty/None `known` (e.g.
+    first run, or --include-known / --rebuild-mapping) fetches every page.
+    """
+    known = known or set()
+    do_early_stop = bool(known)
     repos: list[dict] = []
     page = 1
     while True:
         print(f"  fetching page {page}...", end="", flush=True)
         data = json.loads(run_gh([
-            f"user/starred?per_page={PAGE_SIZE}&page={page}",
+            # sort=created&direction=desc = newest stars first (GitHub's
+            # default, made explicit so the early-stop assumption holds).
+            f"user/starred?per_page={PAGE_SIZE}&page={page}"
+            "&sort=created&direction=desc",
         ]))
         print(" done")
         if not data:
             break
         repos.extend(data)
+
+        if do_early_stop:
+            new_in_page = sum(
+                1 for r in data
+                if f"{r['owner']['login']}/{r['name']}" not in known
+            )
+            if new_in_page == 0:
+                print(f"  page {page} already known -- stopping early "
+                      f"(fetched {len(repos)} repos)")
+                break
+
         if len(data) < PAGE_SIZE:
             break
         page += 1
@@ -201,6 +231,10 @@ def main() -> int:
     parser.add_argument("--include-known", action="store_true",
                         help="Ignore stars_state.json and re-process every "
                              "starred repo from scratch.")
+    parser.add_argument("--full-scan", action="store_true",
+                        help="Fetch every page instead of stopping once a page "
+                             "is fully known. Use if you suspect the state is "
+                             "out of sync with GitHub.")
     parser.add_argument("--reset-state", action="store_true",
                         help="Delete stars_state.json before running, so every "
                              "star is treated as new.")
@@ -209,16 +243,8 @@ def main() -> int:
                              "from files already on disk + the starred list.")
     args = parser.parse_args()
 
-    print("Fetching list of starred repos...")
-    repos = list_starred_repos()
-    print(f"  total starred: {len(repos)}")
-
-    if args.rebuild_mapping:
-        print()
-        rebuild_mapping(repos, OUTPUT_DIR)
-        return 0
-
-    # Load (or reset) the state used for incremental downloads.
+    # Resolve the incremental state BEFORE fetching, so we can stop paginating
+    # early once we reach repos we've already processed.
     if args.reset_state:
         if STATE_PATH.exists():
             STATE_PATH.unlink()
@@ -246,6 +272,18 @@ def main() -> int:
             pass
 
     print(f"  already processed (from state): {len(known)}")
+
+    # These modes need the complete starred list (every page); a normal run
+    # passes `known` so pagination short-circuits at the first fully-known page.
+    fetch_all = args.rebuild_mapping or args.include_known or args.full_scan
+    print("Fetching list of starred repos...")
+    repos = list_starred_repos(known=set() if fetch_all else known)
+    print(f"  total starred: {len(repos)}")
+
+    if args.rebuild_mapping:
+        print()
+        rebuild_mapping(repos, OUTPUT_DIR)
+        return 0
 
     # Filter out already-known stars unless --include-known was passed.
     if args.include_known:
