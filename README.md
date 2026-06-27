@@ -1,8 +1,8 @@
 # github-stars
 
-把你在 GitHub 上 star 过的每个项目的 README.md 单文件下载到本地，并把
-文件名重命名为 `Owner-RepoName.md`（例如 `Helvesec-rmux.md`），
-方便你离线阅读、检索和全文搜索。
+下载 star 过的 repo README（重命名 `Owner-RepoName.md`），
+方便离线阅读、检索和全文搜索；附带 `d-code` skill 管理 `D:\Code\` 仓库
+（fork/clone 分类、冲突检测）。数据存 `data/*.json`，跨平台可用。
 
 > 配套文件 `data/stars_mapping.json` 记录了本地文件名 ↔ 原始 GitHub 网址
 > 的对应表，可以随时反查。
@@ -25,7 +25,7 @@ D:\Code\github-stars\
 │       └── evals/           ← 测试用例
 ├── docs/
 │   └── D-Code-Repos.md      ← data/d-code-repos.json 的使用说明书
-└── stars-readme\            ← 所有下载下来的 README 都放这里
+└── stars-readme/            ← 所有下载下来的 README 都放这里
     ├── Helvesec-rmux.md
     ├── langchain-ai-langgraph.md
     └── ...
@@ -33,8 +33,9 @@ D:\Code\github-stars\
 
 ## 准备：安装并登录 `gh` CLI
 
-脚本通过 `gh api` 调 GitHub REST API，所以本机需要先装好 GitHub
-官方 CLI 并完成认证：
+本项目两个主脚本（`download_stars.py` 和 `.agents/skills/d-code/scripts/clone_repo.py`）
+都通过 `gh` CLI 调 GitHub——前者用 `gh api`、后者用 `gh repo clone`——
+所以本机需要先装好 GitHub 官方 CLI 并完成认证：
 
 ```bash
 # 检查是否已安装
@@ -48,7 +49,7 @@ gh auth status
 ```
 
 登录后 `gh` 默认带一个 5000 次/小时的 REST API 配额，下载
-1200 多个 README 完全没问题。
+几千个 README 完全没问题。
 
 ## 快速开始
 
@@ -84,7 +85,7 @@ GitHub 的 star 列表是按 star 时间**倒序**返回的（最新的在最前
 | 几个新 star（常见情况） | ~2 页 |
 | 大量新 star | 一直拉到第一个全已知页为止（不会漏） |
 
-对 1200 多个 star 的账号，平时增量跑从「拉满 13 页」降到「1～2 页」。
+对几千个 star 的账号，平时增量跑从「拉满十几页」降到「1～2 页」。
 若怀疑 state 和 GitHub 不同步、想强制拉完全部，加 `--full-scan`。
 
 常用工作流：
@@ -93,7 +94,7 @@ GitHub 的 star 列表是按 star 时间**倒序**返回的（最新的在最前
 # 平时：在 GitHub 网站上点了一些 star 后，回命令行跑一下
 python download_stars.py --all
 
-# 想完全重新来过（清空 state，从 1206 个从头下）
+# 想完全重新来过（清空 state，从所有 star 从头下）
 python download_stars.py --reset-state --all
 
 # 只想重新生成对照表，磁盘上有什么就记录什么
@@ -107,7 +108,7 @@ python download_stars.py --rebuild-mapping
 | `--limit N` | 一次最多下 N 个新的 star（默认 10）。配合 `--all` 时无效。 |
 | `--all` | 处理所有**未处理过**的 star。 |
 | `--delay SECONDS` | 每次 API 请求后等多少秒，默认 0.5（GitHub 限流保护）。 |
-| `--include-known` | 忽略 state，把所有 1206 个 star 重新处理一遍（会拉满所有页）。 |
+| `--include-known` | 忽略 state，把所有已 star 的 repo 重新处理一遍（会拉满所有页）。 |
 | `--reset-state` | 删掉 `data/stars_state.json` 再跑。和 `--include-known` 区别是 state 仍然会重建。 |
 | `--full-scan` | 关闭分页短路，强制拉取所有页。怀疑 state 与 GitHub 不同步时使用。 |
 | `--rebuild-mapping` | 不下载，只根据磁盘上已有的 `*.md` 重新生成 `data/stars_mapping.json`。 |
@@ -182,7 +183,7 @@ python .agents/skills/d-code/scripts/scan_inventory.py
 # 2. 克隆新仓（三种 target 形式都支持）
 python .agents/skills/d-code/scripts/clone_repo.py vercel/eve
 python .agents/skills/d-code/scripts/clone_repo.py https://github.com/a2ui-project/a2ui
-python .agents/skills/d-code/scripts/clone_repo.py stars-readme/3DTopia-MVPaint.md
+python .agents/skills/d-code/scripts/clone_repo.py stars-readme/a2ui-project-a2ui.md
 
 # 3. 列出 star 了但还没克隆到 D:\Code 的 repo
 python .agents/skills/d-code/scripts/clone_repo.py --list-new
@@ -194,7 +195,7 @@ python .agents/skills/d-code/scripts/clone_repo.py --list-new
 
 ### 关键不变量
 
-- **克隆文件夹名保持原样**：`MVPaint` 而不是 `3DTopia-MVPaint`（避免 owner
+- **克隆文件夹名保持原样**：`a2ui` 而不是 `a2ui-project-a2ui`（避免 owner
   前缀污染本地目录）
 - **冲突时弹 3 选项**：取消 / 用不同名字（默认 `<owner>-<repo>`）/ 删了重来
 - **单一数据源**：`data/d-code-repos.json`（由 `scan_inventory.py` 重新生成）
