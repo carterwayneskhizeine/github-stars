@@ -1,6 +1,6 @@
 ---
 name: d-code
-description: Manage and query the local code folder inventory (D:\Code on Windows, or any user-configured root_path). Use this skill whenever the user mentions "D盘Code文件夹", "我的D盘Code", "Code文件夹", asks what repos are cloned locally, asks about local forks vs upstream clones, wants to clone a new GitHub repo into the Code folder (especially from a starred repo under stars-readme/), wants to scan or update the local code inventory, or asks about d-code-repos.json. Even if the user just says "我D盘里有什么项目" or "把 stars-readme 里的 X 克隆到我的 Code 文件夹", use this skill. Maintains a single source of truth in `data/d-code-repos.json` and uses `gh repo clone` with conflict detection so that folder names stay canonical (e.g. `MVPaint`, not `3DTopia-MVPaint`).
+description: Manage and query the local code folder inventory. PRIMARY environment is Windows with D:\Code (full skill workflow runs here — clone, scan, sync stars, backfill, all script writes). Termux / proot-distro Ubuntu is a READ-ONLY scratch env: read any file, but do NOT invoke the bundled scripts (clone_repo.py / scan_inventory.py / download_stars.py) because they assume Windows paths and write to data/*.json. Direct `gh repo clone` / `git clone` to a Linux path IS allowed in Termux; just skip the JSON sync. macOS / native Linux can also work by editing `_meta.root_path`. Use this skill whenever the user mentions "D盘Code文件夹", "我的D盘Code", "Code文件夹", asks what repos are cloned locally, asks about local forks vs upstream clones, wants to clone a new GitHub repo into the Code folder (especially from a starred repo under stars-readme/), wants to scan or update the local code inventory, or asks about d-code-repos.json. Even if the user just says "我D盘里有什么项目" or "把 stars-readme 里的 X 克隆到我的 Code 文件夹", use this skill. Maintains a single source of truth in `data/d-code-repos.json` and uses `gh repo clone` with conflict detection so that folder names stay canonical (e.g. `MVPaint`, not `3DTopia-MVPaint`).
 ---
 
 # d-code — local code folder inventory skill
@@ -60,8 +60,8 @@ else:
 
 | Mode | When | Allowed actions |
 |---|---|---|
-| `windows-local` | Windows + `D:\Code` exists | Everything: clone, sync stars, backfill, scan, query |
-| `termux-ubuntu` | Termux detected (`TERMUX_VERSION` / `ANDROID_ROOT` / `/data/data/com.termux`) | **Read-only** on existing files + **create new** files under `docs/`. No JSON writes, no `gh clone`, no `git push`, no script edits |
+| `windows-local` | Windows + `D:\Code` exists | Everything: clone, sync stars, backfill, scan, query. All bundled scripts safe to run. |
+| `termux-ubuntu` | Termux detected (`TERMUX_VERSION` / `ANDROID_ROOT` / `/data/data/com.termux`) | Read any file; **direct `gh repo clone` / `git clone` to a Linux path is OK**; create new files under `docs/`. **Do NOT** invoke `clone_repo.py` / `scan_inventory.py` / `download_stars.py` — they hardcode `D:\Code` and write `data/*.json`. Do NOT push, do NOT edit scripts, do NOT write existing files. |
 | `other` | Anything else (Linux/macOS without Termux, Windows without `D:\Code`, …) | **Stop and ask the user.** They likely need to edit `_meta.root_path`, install `gh`, or confirm a different path |
 
 ### What "core data" means (off-limits in `termux-ubuntu`)
@@ -69,15 +69,16 @@ else:
 - `data/d-code-repos.json`, `data/stars_mapping.json`, and any other JSON
 - `.agents/skills/d-code/scripts/*.py`, `download_stars.py`, `SKILL.md`
 - Existing files under `docs/`
-- Any output of `scan_inventory.py` or `clone_repo.py`
+- **Anything that would be rewritten by the bundled scripts** — i.e., the output of `scan_inventory.py`, `clone_repo.py`, `download_stars.py`
 
 ### What's still allowed in `termux-ubuntu`
 
-- Read any file (`.md`, `.json`, `.py`, READMEs, `stars-readme/*.md`)
-- Run read-only Python that only prints to stdout — Workflow 1 and 4 still work
-- **Create new** files under `docs/` — e.g., `docs/clone-<owner>-<repo>-windows.md` with instructions the user can copy to their Windows machine
+- **Read** any file (`.md`, `.json`, `.py`, READMEs, `stars-readme/*.md`)
+- Run **read-only** Python that only prints to stdout — Workflow 1 and 4 still work
+- **Direct `gh repo clone` / `git clone`** to a Linux path (e.g. `/mnt/sdcard/Code/<repo>`). Just don't pipe the result through `clone_repo.py`, and don't expect `d-code-repos.json` to be updated locally — it lives on the Windows machine and gets re-synced via `scan_inventory.py` next time the user runs it there
+- **Create new** files under `docs/` — e.g., `docs/clone-<owner>-<repo>-note.md` with the commands the user should run later on Windows to sync the JSON
 
-If a user in `termux-ubuntu` mode asks to clone or modify state: **don't run the script.** Tell them to run it on Windows, and offer to write a docs note for them.
+If a user in `termux-ubuntu` mode asks to clone: **run `gh repo clone` directly to a Linux path they confirm; skip the JSON write**. If they ask to scan / sync stars / backfill, refuse and explain those need Windows. If unsure, ask.
 
 ## When to trigger
 
@@ -125,7 +126,7 @@ Run the detection snippet from "Environment detection" above.
 | Mode | Action |
 |---|---|
 | `windows-local` | Proceed to Step 2 |
-| `termux-ubuntu` | **Stop.** Tell the user this workflow needs Windows. Offer to create `docs/clone-<owner>-<repo>-windows.md` with the exact commands they should run on their Windows machine |
+| `termux-ubuntu` | Don't invoke `clone_repo.py` (it writes `data/d-code-repos.json` which is Windows-machine territory). Instead: confirm the target Linux path with the user, then run `gh repo clone <owner>/<repo> <linux-path>` directly. Skip Steps 4 (`download_stars.py`) and 5 (`--backfill-source-star`) — both target the Windows JSON. Optionally write a note in `docs/clone-<owner>-<repo>-termux.md` reminding to re-sync on Windows later |
 | `other` | **Stop and ask.** The user likely needs to edit `_meta.root_path` or install `gh` |
 
 ### Step 2: resolve the target owner/repo
@@ -233,11 +234,10 @@ For schema details, read `references/json-schema.md`.
 
 ## Cross-platform notes
 
-- The skill scripts use `pathlib` and handle Windows/Unix paths.
-- `_meta.root_path` is the only platform-specific value; everything else is portable.
-- On macOS/Linux, edit the JSON's `_meta.root_path` to e.g. `~/Code` and re-run `scan_inventory.py`.
+- **Primary machine is Windows** with `D:\Code`. The skill scripts (`scan_inventory.py`, `clone_repo.py`, `download_stars.py`) assume Windows paths and write to `data/*.json`. They should be considered **Windows-only tools**.
+- macOS / native Linux: works fine. Edit `_meta.root_path` in `data/d-code-repos.json` to e.g. `~/Code` or `/home/<you>/Code`, then the bundled scripts run normally.
+- **Termux (Android) + proot-distro Ubuntu**: a **read-only scratch env**. The bundled scripts will misbehave (wrong path, may write to `/mnt/sdcard/...` paths that won't sync with Windows). **Don't run them.** Direct `gh repo clone` / `git clone` to `/mnt/sdcard/Code/<repo>` (or any Linux path the user picks) is fine; just skip the JSON sync. The JSON lives on the Windows machine and gets refreshed next time the user runs `scan_inventory.py` there.
 - The user account detection (`is this my fork?`) hardcodes the GitHub username `carterwayneskhizeine`. Change via `--user` flag or by editing the script's `DEFAULT_GH_USER` constant.
-- **Termux (Android) + proot-distro Ubuntu**: this is the `termux-ubuntu` mode. The skill's clone / scan / backfill scripts need a real Code folder on a real filesystem — they will fail in proot-distro because `D:\Code` doesn't translate and `gh` may not be installed. Stay read-only in this mode; use the Windows machine for actual cloning. Use the detection snippet above; do not assume.
 
 ## Things to never do
 
@@ -246,7 +246,8 @@ For schema details, read `references/json-schema.md`.
 - **Don't fabricate `parent` / `upstream` data.** If the fork status is unclear, mark the entry as `type: "upstream-clone"` with a `notes` field explaining the ambiguity.
 - **Don't delete a folder without explicit user confirmation.** Even if the conflict-resolution flow recommends it, the script will require typed confirmation of the folder name.
 - **Don't skip the environment check.** Always run the detection snippet before Workflow 2 or Workflow 3. Running `clone_repo.py` on Termux will silently fail or corrupt state.
-- **In `termux-ubuntu` mode, don't write to `data/`, scripts, or existing files.** Only read files and create new files under `docs/`. If the user asks to clone or scan, refuse and explain.
+- **In `termux-ubuntu` mode, don't invoke the bundled scripts.** Direct `gh repo clone` / `git clone` to a Linux path IS fine; `clone_repo.py`, `scan_inventory.py`, and `download_stars.py` are NOT, because they hardcode Windows paths and write to `data/*.json`. The JSON sync happens later on the Windows machine.
+- **In `termux-ubuntu` mode, don't write to `data/`, scripts, or existing files.** Only read files, run direct `gh`/`git` clone commands to a Linux path, and create new files under `docs/`.
 - **In `other` mode, don't guess.** Stop and ask the user what to do — they may need to install `gh`, change `_meta.root_path`, or move to a different machine.
 - **Don't ask the user to run `download_stars.py` and "回填" as separate follow-ups.** Workflow 2 already covers both — just run them as part of the clone.
 
