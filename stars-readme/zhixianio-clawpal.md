@@ -1,0 +1,105 @@
+# ClawPal
+
+A desktop companion app for [OpenClaw](https://github.com/openclaw/openclaw) — manage your AI agents, models, and configurations with a visual interface instead of editing JSON by hand.
+
+## Features
+
+- **Install OpenClaw** — Start from guided installation paths (Local / WSL2 / Docker / Remote SSH), run step-by-step precheck/install/init/verify, then continue directly to config workflows
+- **Recipes** — Browse and apply pre-built configuration templates with parameter forms, live diffs, and automatic rollback on failure
+- **Agent Management** — Create, configure, and monitor your OpenClaw agents at a glance
+- **Model Profiles** — Set up API keys, browse the model catalog, and switch the global default model in one click
+- **Channel Bindings** — Connect Discord channels to agents with per-channel model overrides
+- **Doctor** — Run diagnostics, auto-fix common issues, and clean up stale sessions
+- **History & Rollback** — Every config change is snapshotted; roll back to any point in time
+- **Remote Management** — Connect to remote OpenClaw instances over SSH and manage them the same way
+- **Auto-Update** — ClawPal checks for new versions and updates itself in-app
+
+## Install
+
+Download the latest release for your platform from [GitHub Releases](https://github.com/zhixianio/clawpal/releases):
+
+| Platform | Format |
+|----------|--------|
+| macOS (Apple Silicon) | `.dmg` |
+| macOS (Intel) | `.dmg` |
+| Windows | `.exe` installer or portable |
+| Linux | `.deb` / `.AppImage` |
+
+## Development
+
+Prerequisites: [Bun](https://bun.sh/), [Rust](https://www.rust-lang.org/tools/install), and Xcode Command Line Tools (macOS)
+
+```bash
+bun install
+bun run dev:tauri    # Vite dev server + Tauri window
+```
+
+### Build
+
+```bash
+bun run build:tauri
+```
+
+### Release
+
+```bash
+bun run release:dry-run   # Preview version bump + tag
+bun run release           # Tag and push (triggers CI)
+```
+
+### Environment overrides
+
+```bash
+export CLAWPAL_OPENCLAW_DIR="$HOME/.openclaw"   # OpenClaw config directory (default)
+export CLAWPAL_DATA_DIR="$HOME/.clawpal"        # ClawPal metadata directory
+export CLAWPAL_SENTRY_DSN="https://public@example.com/42"  # Build-time override for ClawPal's public bug-report Sentry DSN
+```
+
+`CLAWPAL_SENTRY_DSN` is optional. By default ClawPal uses a public Sentry intake for sanitized bug reports; set this before `bun run dev:tauri` or `bun run build:tauri` if you want reports routed to your own Sentry project.
+
+## WSL2 (Windows Subsystem for Linux)
+
+If you have OpenClaw installed inside WSL2, you can manage it from ClawPal using the built-in SSH Remote feature:
+
+1. Enable SSH inside your WSL2 distro:
+   ```bash
+   sudo apt install openssh-server
+   sudo systemctl enable ssh
+   sudo systemctl start ssh
+   ```
+
+2. In ClawPal, add a new SSH host:
+   - **Host**: `localhost`
+   - **Port**: the SSH port (default `22`, or check with `ss -tlnp | grep ssh`)
+   - **User**: your WSL2 username
+
+3. Connect — ClawPal will manage the WSL2 OpenClaw instance the same as any remote server.
+
+## Tech stack
+
+- **Frontend** — React, TypeScript, Tailwind CSS, Radix UI
+- **Backend** — Rust, Tauri 2
+- **Remote** — russh (SSH/SFTP)
+
+## Project layout
+
+```
+src/           React + TypeScript UI
+src-tauri/     Rust + Tauri backend
+docs/plans/    Design and implementation plans
+```
+
+## Recipe docs
+
+- [`docs/recipe-authoring.md`](docs/recipe-authoring.md) — how to write and package a ClawPal recipe
+- [`docs/recipe-cli-action-catalog.md`](docs/recipe-cli-action-catalog.md) — full CLI-backed recipe action catalog and support matrix
+- [`docs/recipe-runner-boundaries.md`](docs/recipe-runner-boundaries.md) — runner/backend boundaries and OpenClaw-first design rules
+
+## Testing docs
+
+- [`docs/testing/business-flow-test-matrix.md`](docs/testing/business-flow-test-matrix.md) — local and CI validation layers
+- [`docs/testing/local-docker-openclaw-debug.md`](docs/testing/local-docker-openclaw-debug.md) — rebuild the isolated Ubuntu/OpenClaw Docker target used for recipe debugging
+
+## License
+
+[MIT](LICENSE) © 2024-2025 zhixian

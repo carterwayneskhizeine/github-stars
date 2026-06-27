@@ -1,0 +1,97 @@
+# HyperBoard
+
+A feature-rich anonymous message board web application built with Node.js, Express, and EJS. It uses SQLite3 for data storage and is fully containerized with Docker. The frontend is built with **modern, modular JavaScript (ESM)**, featuring a **retro 90s Windows 95-style UI** with 3D beveled borders, outset/inset button effects, classic gray backgrounds, and nostalgic web aesthetics. The application supports Markdown content, file uploads (including video playback), a comment system with infinite nesting, **AI-powered responses to specific mentions**, user authentication, Google-style pagination, YouTube video embedding, and allows users to post, edit, and delete messages anonymously.
+
+![Preview of the Application](PreviewImage.jpg)
+![Preview of Invitation](PreviewInvitation.jpg)
+
+## Features
+
+*   **Anonymous Posting**: Share your thoughts without revealing your identity.
+*   **Retro 90s UI**: A nostalgic Windows 95-inspired interface with 3D outset/inset borders, gray (#C0C0C0) backgrounds, Tahoma/Verdana fonts, classic blue hyperlinks, blinking text animations, and yellow-black "under construction" warning stripes.
+*   **SQLite3 Database**: Lightweight and efficient data storage.
+*   **Data Persistence**: All messages are stored persistently using Docker volumes, ensuring your data is safe across container restarts.
+*   **Markdown Support**: Write messages using Markdown syntax (headings, bold, italics, lists, code blocks, etc.), which will be rendered beautifully.
+*   **Edit & Delete Messages**: Users can edit their previously posted messages or delete them.
+*   **Private Messages with KEY Protection**: Post private messages protected by a KEY. Only users who know the correct KEY can view these messages.
+*   **User Authentication**: Register and login system with session-based authentication.
+*   **User-Specific Private Messages**: Logged-in users can view all their private messages without entering KEYs individually.
+*   **Embedded Video Content**: Automatically embeds YouTube links pasted into messages as responsive video players.
+*   **File Upload Support**: Upload and display files in messages (one file per message, max 50MB). Images show previews, videos (e.g., MP4) are playable, and other files show download links.
+*   **Pagination with Google-Style Navigation**: Messages are displayed with Google search results-style pagination (e.g., < 1 2 3 4 5 ... 100 >). Each page shows 5 messages with previous/next buttons and direct page navigation.
+*   **Database Performance Optimization**: Built-in indexes for faster queries, better scalability for research and learning.
+*   **Responsive Design**: The application is designed to be accessible and usable across various devices, with mobile-friendly buttons.
+*   **Dockerized Deployment**: Easy setup and deployment using Docker and Docker Compose.
+*   **AI-Powered Comment Responses**: Mention `@goldierill` to get an AI reply focused on the current thread's context, or mention `@rag` to trigger RAG (Retrieval-Augmented Generation) — the AI will search historical board posts in Qdrant and incorporate relevant past discussions into its response.
+*   **Like System (Comments & Messages)**: Express your appreciation by liking comments and main messages. The 'like' button dynamically changes color when active.
+*   **Comment System with Infinite Reply Support**: Add comments to any page with unlimited nesting depth, featuring liking, editing, and deletion capabilities.
+*   **Trending Feed**: A "Trending" feed that uses a Reddit-style algorithm to sort messages based on the **total likes on comments** and time-decay, allowing users to discover the most popular and engaging content dynamically.
+*   **Liked Messages Feed**: Logged-in users can easily access a dedicated "Liked" feed, showcasing all messages they have personally liked.
+*   **Private Invitation Access**: Transform your board into a private, invitation-only community. Visitors must verify an invitation code (configured via environment variable) before accessing any content. The system preserves URL parameters (such as private message keys) and redirects users to their intended destination after verification.
+*   **Password Change**: Logged-in users can securely change their passwords through a user-friendly dropdown menu in the header.
+
+## Tech Stack
+
+*   **Backend**: Node.js (Latest Alpine) with Express.js
+*   **Database**: SQLite3 with performance indexes for optimized queries
+*   **Authentication**: Express Session with SQLite session store, bcrypt for password hashing
+*   **Templating**: EJS
+*   **Styling**: Tailwind CSS with retro 90s Windows 95 theme (custom component classes)
+*   **Client-side Logic**: Native JavaScript (Fetch API)
+*   **File Upload**: Multer for handling file uploads (all types, up to 50MB)
+*   **Markdown Editor**: StackEdit (fullscreen mode, light theme)
+*   **Containerization**: Docker, Docker Compose
+*   **Vector Database**: Qdrant for RAG semantic search
+*   **Embedding**: SiliconFlow API (Qwen3-Embedding-4B, 2560 dimensions)
+*   **AI Chat**: OpenRouter API (DeepSeek V4 Flash)
+
+## Documentation
+
+For detailed information about installation, usage, and development, please refer to the documentation in the [doc/](doc/) folder:
+
+- **[Installation Guide](doc/installation.md)** - Prerequisites, setup, and getting started
+- **[Usage Guides](doc/usage/)** - Comprehensive usage documentation
+  - [Public Messages](doc/usage/public-messages.md)
+  - [Private Messages](doc/usage/private-messages.md)
+  - [User Authentication](doc/usage/user-authentication.md)
+  - [Password Change](doc/usage/password-change.md)
+  - [Private Invitation Access](doc/usage/private-invitation.md)
+  - [File Upload](doc/usage/file-upload.md)
+  - [Embedded Videos](doc/usage/embedded-videos.md)
+  - [Comment System](doc/usage/comment-system.md)
+- **[API Usage](doc/api-usage.md)** - API endpoints and curl examples
+- **[Project Structure](doc/project-structure.md)** - Codebase organization
+- **[Feature Implementations](doc/feature-implementations.md)** - Technical details of features
+- **[Development Guide](doc/development.md)** - Development workflow and rebuilding
+- **[Database Management](doc/database-management.md)** - Database operations and maintenance
+- **[RAG & AI Guide](docs/rag-ai.md)** - RAG semantic search and AI context enhancement
+- **[OOM Debug Guide](docs/oom-debug.md)** - Memory issue troubleshooting
+
+## Quick Start
+
+```bash
+# Clone the repository
+git clone https://github.com/carterwayneskhizeine/HyperBoard.git
+cd HyperBoard
+
+# (Optional) Configure invitation access for private mode
+# Edit .env to set:
+#   INVITATION_MODE=true
+#   INVITATION_CODE=your-secret-code
+# Default is public access (INVITATION_MODE=false)
+
+# Build and run with Docker
+docker compose up --build -d
+
+# Access the application
+# Open http://localhost:1989 in your browser
+# If INVITATION_MODE=true, you'll be prompted for the code
+```
+
+## License
+
+This project is licensed under the [WTFPL](LICENSE) - see the LICENSE file for details.
+
+---
+
+Built by Love.

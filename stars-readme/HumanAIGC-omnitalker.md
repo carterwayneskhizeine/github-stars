@@ -1,0 +1,35 @@
+# OmniTalker (Accepted by NeurIPS 2025)
+
+This repo hosts the project page for OmniTalker. 
+
+OmniTalker: Real-Time Text-Driven Talking Head Generation with In-Context Audio-Visual Style Replication
+
+Zhongjian Wang,
+[Peng Zhang](https://scholar.google.com/citations?user=QTgxKmkAAAAJ),
+[Jinwei Qi](https://dblp.org/pid/183/0937.html),
+[Guangyuan Wang](https://github.com/alibaba/cluster-contrast-reid)
+[Sheng Xu](https://dblp.org/pid/10/1887-7.html),
+[Bang Zhang](https://dblp.org/pid/11/4046.html),
+[Liefeng Bo](https://scholar.google.com/citations?user=FJwtMf0AAAAJ&hl=zh-CN)
+
+Tongyi Lab, Alibaba Group
+
+[![](https://img.shields.io/badge/Project-Page-green.svg)](https://humanaigc.github.io/omnitalker/)
+[![](https://img.shields.io/badge/Paper-arXiv-orange.svg)](https://arxiv.org/abs/2504.02433)
+[![](https://img.shields.io/badge/Demo-Huggingface-yellow.svg)](https://huggingface.co/spaces/Mrwrichard/OmniTalker)
+<!-- [![](https://img.shields.io/badge/Demo_(Soon)-ModelScope-blue.svg)](https://humanaigc.github.io/omnitalker/) -->
+
+
+## Citation	
+
+```
+@misc{wang2025omnitalkerrealtimetextdriventalking,
+      title={OmniTalker: Real-Time Text-Driven Talking Head Generation with In-Context Audio-Visual Style Replication}, 
+      author={Zhongjian Wang and Peng Zhang and Jinwei Qi and Guangyuan Wang Sheng Xu and Bang Zhang and Liefeng Bo},
+      year={2025},
+      eprint={2504.02433},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2504.02433}, 
+}
+```

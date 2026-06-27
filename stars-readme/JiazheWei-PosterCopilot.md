@@ -1,0 +1,127 @@
+<div align="center">
+
+# PosterCopilot: Toward Layout Reasoning and Controllable Editing for Professional Graphic Design
+
+[Jiazhe Wei](https://jiazhewei.github.io/)<sup>1,\*</sup>, 
+[Ken Li](https://kiyotakali.github.io/)<sup>1,\*</sup>, 
+Tianyu Lao<sup>2</sup>, 
+[Haofan Wang](https://haofanwang.github.io/)<sup>2</sup>, 
+[Liang Wang](https://scholar.google.com/citations?user=8kzzUboAAAAJ&hl=en)<sup>1,3</sup>, 
+[Caifeng Shan](https://caifeng-shan.github.io/)<sup>1</sup>, 
+[Chenyang Si](https://chenyangsi.top/)<sup>1,†</sup>
+
+<sup>1</sup>[PRLab, Nanjing University](https://prlab-nju.com/), 
+<sup>2</sup>[LibLib.ai](https://www.lovart.ai/zh), 
+<sup>3</sup>[Institute of Automation, Chinese Academy of Sciences](http://www.cripac.ia.ac.cn/CN/model/index.htm)
+
+<sup>\*</sup>Equal Contribution, <sup>†</sup>Corresponding Author
+
+
+[📄 Paper](https://arxiv.org/abs/2512.04082) | [🌐 Project Page](https://postercopilot.github.io/) | [▶️ Video](https://www.youtube.com/watch?v=yqFMzb5iVE8) | [🤗 Model Weights](#) (Coming Soon) | [🤗 Datasets](#) (Coming Soon)
+
+</div>
+
+---
+## 🔥 News 
+
+- **[2025-12-04]** Our paper is now available on [arXiv](https://arxiv.org/abs/2512.04082)!
+
+---
+## 🌟 Highlights
+
+**PosterCopilot** is a cutting-edge framework that advances layout reasoning and controllable editing for professional graphic design using Large Multimodal Models (LMMs).
+
+<div align="center">
+  <img src="assets/teaser.png" alt="PosterCopilot Teaser" width="100%">
+</div>
+
+
+### ✨ Core Features
+
+- **🎯 Geometrically Accurate Layouts**  
+  Achieves precise spatial positioning through a progressive three-stage training strategy that moves beyond simple regression to distribution-based learning
+
+- **🎨 Aesthetic Reasoning**  
+  Instills human-like design principles and aesthetics through reinforcement learning from aesthetic feedback
+
+- **✂️ Layer-level Control**  
+  Enables precise, fine-grained editing of individual layers while maintaining global visual consistency
+
+- **🔄 Multi-round Iterative Editing**  
+  Supports professional iterative design workflows with multiple refinement rounds on specific elements
+
+- **🎭 Versatile Applications**  
+  Handles complete layout generation, insufficient assets synthesis, theme switching, and canvas reframing
+
+### 📈 Three-Stage Training Paradigm
+
+1. **Perturbed Supervised Fine-Tuning (PSFT)**  
+   Reformulates coordinate regression into distribution-based learning for continuous spatial reasoning
+
+2. **Reinforcement Learning for Visual-Reality Alignment (RL-VRA)**  
+   Introduces geometric reward signals to ensure visual-reality alignment and spatial accuracy
+
+3. **Reinforcement Learning from Aesthetic Feedback (RLAF)**  
+   Employs learned aesthetic rewards to generate coherent and diverse compositions
+
+### 📊 PosterCopilot Dataset
+
+**One of the largest-scale, most thematically diverse, and highest-quality multi-layer poster datasets.**
+
+- **160K posters** with **2.6M layers** (1.2M text + 1.4M image/decorative elements)
+- Spans **40+ distinct domains** from commercial promotions to public announcements
+- Novel OCR-based pipeline addresses over-segmentation challenges in multi-layer datasets
+
+---
+
+## 📋 To-Do List
+
+We are committed to making outstanding contributions to both academia and the graphic design industry with PosterCopilot. Our open-source plan includes:
+
+### ✅ Released
+- [x] Project page and documentation
+- [x] Demo video
+
+### 🚧 Coming Soon
+
+- [ ] **Data Pipeline**
+- [ ] **Test Dataset**
+- [ ] **Training Code**
+- [ ] **Model Weights**
+
+---
+
+## 📝 Citation
+
+If you find PosterCopilot useful for your research, please consider citing:
+
+```bibtex
+@misc{wei2025postercopilot,
+        title={PosterCopilot: Toward Layout Reasoning and Controllable Editing for Professional Graphic Design}, 
+        author={Jiazhe Wei and Ken Li and Tianyu Lao and Haofan Wang and Liang Wang and Caifeng Shan and Chenyang Si},
+        year={2025},
+        eprint={2512.04082},
+        archivePrefix={arXiv},
+        primaryClass={cs.CV}
+  }
+```
+
+---
+
+## 📧 Contact
+
+For questions and collaborations, please contact:
+- Jiazhe Wei: [jzw6545@gmail.com](mailto:jzw6545@gmail.com)
+- Ken Li: [kiyotakali075@gmail.com](mailto:kiyotakali075@gmail.com)
+- Chenyang Si: [chenyangsi@smail.nju.edu.cn](mailto:chenyangsi@smail.nju.edu.cn)
+
+---
+
+## 🙏 Acknowledgments
+
+We thank all contributors and the research community for their valuable feedback and support.
+
+
+<p align="center">
+  © 2025 PosterCopilot project. Released under the Apache 2.0 License.
+</p>

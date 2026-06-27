@@ -1,0 +1,96 @@
+# ARKit Blendshape Helper
+
+This Blender addon is designed to streamline the process of converting a pre-existing facial rig into ARKit-compatible blendshapes. It allows you to use facial motion capture to animate any 3D model's face by automatically creating and applying shape keys that match the ARKit facial expressions.
+
+> **Note:** This addon requires your 3D model to have an existing facial rig that can be posed for each expression.
+
+**Code adapted from** [FREE-AUTOMATIC Facial MoCap Shapekeys (Blender)](https://www.youtube.com/watch?v=61QUzH34l1I)
+
+**Credits to TheRoyalSkies on youtube**  
+[@TheRoyalSkies](https://www.youtube.com/@TheRoyalSkies)  
+
+# ARKit Facial Blendshape Guide by PooyaDeperson
+
+A new high-quality resource has been created by **PooyaDeperson** to assist with rigging facial animations. This guide focuses on creating the 52 facial blendshapes used in ARKit.
+
+The website provides a detailed guide with the following features:
+
+* **Muscle group anatomy visuals** to help with understanding the underlying structure.
+* An easy way to **copy and paste the blendshapes**, useful for creating them from scratch.
+
+You can find the full guide at the link below:
+
+[**The Ultimate Guide to Creating ARKit's 52 Facial Blendshapes**](https://pooyadeperson.com/the-ultimate-guide-to-creating-arkits-52-facial-blends
+
+## To Install ARKitHelper.py:
+- Download the file from github using this link: [https://github.com/elijah-atkins/ARKitBlendshapeHelper/releases/download/v1.0.0/ARKitBlendshapeHelper.zip](https://github.com/elijah-atkins/ARKitBlendshapeHelper/releases/download/v1.0.0/ARKitBlendshapeHelper.zip)
+- Open Blender and go to Edit > Preferences > Addons
+- Click on "Install" and navigate to the script file you downloaded. Select the file and click "Install Add-on".
+- Enable the "ARKit Blendshape Helper" add-on by checking the box next to it.
+- In the 3D Viewport, go to the Sidebar (press N) and find the "ARKit Helper" panel.
+
+## To use the blender addon ARKitBlendshapeHelper:
+To use Arkit Helper, add a temporary facial rig on your character model. You can create a facial rig with rigify "Human" meta-rig or Auto-rig Pro (a paid add-on that simplifies rigging).
+
+- Rig your character using your preferred method.
+- Set a resting Basis pose on frame 0
+- Create 52 ARKit poses for your character in frames 1-52. You can use the reference for the blendshapes here: https://arkit-face-blendshapes.com/ 
+-  In each frame, the ARKit Helper panel will display the name of the pose it is expecting. If the frame number is out of range, the panel will display "No name for this frame".
+- Duplicate your character and set the original as the source and the duplicate as the target in the ARKit Helper panel.
+- Select a source object by clicking on the "Source Object" dropdown and choosing an object from the list.(The original)
+- Select a target object by clicking on the "Target Object" dropdown and choosing an object from the list.(The duplicate)
+- Click "Create ARKit Blendshapes" and wait for the addon to generate the blendshapes on the target head.
+
+### The name and order of each blendshape that ARKit uses to describe faces.
+-  1: 'eyeBlinkLeft',
+-  2: 'eyeLookDownLeft',
+-  3: 'eyeLookInLeft',
+-  4: 'eyeLookOutLeft',
+-  5: 'eyeLookUpLeft',
+-  6: 'eyeSquintLeft',
+-  7: 'eyeWideLeft',
+-  8: 'eyeBlinkRight',
+-  9: 'eyeLookDownRight',
+-  10: 'eyeLookInRight',
+-  11: 'eyeLookOutRight',
+-  12: 'eyeLookUpRight',
+-  13: 'eyeSquintRight',
+-  14: 'eyeWideRight',
+-  15: 'jawForward',
+-  16: 'jawLeft',
+-  17: 'jawRight',
+-  18: 'jawOpen',
+-  19: 'mouthClose',
+-  20: 'mouthFunnel',
+-  21: 'mouthPucker',
+-  22: 'mouthRight',
+-  23: 'mouthLeft',
+-  24: 'mouthSmileLeft',
+-  25: 'mouthSmileRight',
+-  26: 'mouthFrownRight',
+-  27: 'mouthFrownLeft',
+-  28: 'mouthDimpleLeft',
+-  29: 'mouthDimpleRight',
+-  30: 'mouthStretchLeft',
+-  31: 'mouthStretchRight',
+-  32: 'mouthRollLower',
+-  33: 'mouthRollUpper',
+-  34: 'mouthShrugLower',
+-  35: 'mouthShrugUpper',
+-  36: 'mouthPressLeft',
+-  37: 'mouthPressRight',
+-  38: 'mouthLowerDownLeft',
+-  39: 'mouthLowerDownRight',
+-  40: 'mouthUpperUpLeft',
+-  41: 'mouthUpperUpRight',
+-  42: 'browDownLeft',
+-  43: 'browDownRight',
+-  44: 'browInnerUp',
+-  45: 'browOuterUpLeft',
+-  46: 'browOuterUpRight',
+-  47: 'cheekPuff',
+-  48: 'cheekSquintLeft',
+-  49: 'cheekSquintRight',
+-  50: 'noseSneerLeft',
+-  51: 'noseSneerRight',
+-  52: 'tongueOut'
