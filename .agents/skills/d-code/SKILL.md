@@ -36,6 +36,49 @@ github-stars/
 └── stars-readme/                  ← 1212 README files from starred repos
 ```
 
+## Environment detection — run this first
+
+This skill mutates files in `data/`, runs `gh repo clone`, and writes JSON state. **Before doing anything that changes state, detect the environment** so you don't run Windows paths on Termux or write JSON files when you shouldn't.
+
+### Detection snippet
+
+```bash
+python -c "
+import os, platform
+sys_name = platform.system()
+root = r'D:\Code'
+if sys_name == 'Windows' and os.path.isdir(root):
+    print(f'd-code mode: windows-local  ({sys_name} + {root})')
+elif 'ANDROID_ROOT' in os.environ or 'TERMUX_VERSION' in os.environ or os.path.isdir('/data/data/com.termux'):
+    print('d-code mode: termux-ubuntu  (Termux / proot-distro Ubuntu detected)')
+else:
+    print(f'd-code mode: other  ({sys_name}, {root} not present)')
+"
+```
+
+### Three modes
+
+| Mode | When | Allowed actions |
+|---|---|---|
+| `windows-local` | Windows + `D:\Code` exists | Everything: clone, sync stars, backfill, scan, query |
+| `termux-ubuntu` | Termux detected (`TERMUX_VERSION` / `ANDROID_ROOT` / `/data/data/com.termux`) | **Read-only** on existing files + **create new** files under `docs/`. No JSON writes, no `gh clone`, no `git push`, no script edits |
+| `other` | Anything else (Linux/macOS without Termux, Windows without `D:\Code`, …) | **Stop and ask the user.** They likely need to edit `_meta.root_path`, install `gh`, or confirm a different path |
+
+### What "core data" means (off-limits in `termux-ubuntu`)
+
+- `data/d-code-repos.json`, `data/stars_mapping.json`, and any other JSON
+- `.agents/skills/d-code/scripts/*.py`, `download_stars.py`, `SKILL.md`
+- Existing files under `docs/`
+- Any output of `scan_inventory.py` or `clone_repo.py`
+
+### What's still allowed in `termux-ubuntu`
+
+- Read any file (`.md`, `.json`, `.py`, READMEs, `stars-readme/*.md`)
+- Run read-only Python that only prints to stdout — Workflow 1 and 4 still work
+- **Create new** files under `docs/` — e.g., `docs/clone-<owner>-<repo>-windows.md` with instructions the user can copy to their Windows machine
+
+If a user in `termux-ubuntu` mode asks to clone or modify state: **don't run the script.** Tell them to run it on Windows, and offer to write a docs note for them.
+
 ## When to trigger
 
 Trigger phrases (in Chinese OR English, exact wording not required):
@@ -71,11 +114,21 @@ User asks "我 D 盘有哪些 upstream clone?" or similar.
 
 **Don't** re-run the scan unless the user asks. The JSON is the truth.
 
-## Workflow 2 — clone a starred repo to the local Code folder
+## Workflow 2 — clone a URL (combined: clone → sync stars → backfill source_star)
 
-User says "把 stars-readme/3DTopia-MVPaint.md 那个 clone 到我 D 盘" or "clone vercel/eve 到 Code 文件夹".
+User says "把 https://github.com/X/Y 克隆到 Code 文件夹" or "clone vercel/eve 到 Code 文件夹". This workflow runs the **full chain in one shot** so the new clone is fully linked into the inventory before you finish — the user should not need to ask for `download_stars.py` and "回填" as separate follow-ups.
 
-### Step 1: resolve the target owner/repo
+### Step 1: environment check
+
+Run the detection snippet from "Environment detection" above.
+
+| Mode | Action |
+|---|---|
+| `windows-local` | Proceed to Step 2 |
+| `termux-ubuntu` | **Stop.** Tell the user this workflow needs Windows. Offer to create `docs/clone-<owner>-<repo>-windows.md` with the exact commands they should run on their Windows machine |
+| `other` | **Stop and ask.** The user likely needs to edit `_meta.root_path` or install `gh` |
+
+### Step 2: resolve the target owner/repo
 
 | Input shape | Resolution |
 | --- | --- |
@@ -86,7 +139,7 @@ User says "把 stars-readme/3DTopia-MVPaint.md 那个 clone 到我 D 盘" or "cl
 
 Use the bundled scripts for the URL parsing — `scripts/clone_repo.py` accepts a URL, `owner/repo`, or a `stars-readme/Owner-Repo.md` path as input.
 
-### Step 2: run the clone script with conflict detection
+### Step 3: clone with conflict detection
 
 ```bash
 python .agents/skills/d-code/scripts/clone_repo.py <owner/repo or URL or stars-readme path>
@@ -104,16 +157,42 @@ The script handles four cases:
 
 The script updates `data/d-code-repos.json` after a successful clone.
 
-### Step 3: verify and report
+If the user picks `[1]` cancel or the script exits non-zero, **stop the workflow** — don't run Step 4 or 5.
 
-After cloning, re-read the relevant JSON entry and report:
+### Step 4: sync stars (was previously a separate `download_stars.py` call)
+
+After a successful clone, refresh the stars inventory so the new star is in `data/stars_mapping.json` and `stars-readme/<owner>-<repo>.md` exists:
+
+```bash
+python download_stars.py
+```
+
+This is idempotent — safe to run after every clone. If `download_stars.py` doesn't exist at the repo root, log a warning and continue to Step 5 (the clone itself still succeeded).
+
+### Step 5: backfill source_star (was previously a separate "回填" call)
+
+```bash
+python .agents/skills/d-code/scripts/scan_inventory.py --backfill-source-star
+```
+
+This links the new clone to `stars-readme/<owner>-<repo>.md` automatically, and also reports any other upstream-clones whose `source_star` is still null.
+
+### Step 6: verify and report
+
+After all three steps succeed, re-read the relevant JSON entry and report:
 - Folder name (canonical, no `Owner-` prefix)
 - Origin URL
 - `source_star` field (which stars-readme file prompted this clone, if any)
+- Whether `download_stars.py` added the star (`downloaded=N skipped=M failed=K`)
+- Whether `--backfill-source-star` matched it (`matched=N unmatched=M`)
+
+If any step failed partway, report which step(s) succeeded and which didn't, so the user can decide whether to retry. Never silently swallow a step's failure.
 
 ## Workflow 3 — scan / refresh the inventory
 
 User says "扫一下 D 盘" or "更新清单".
+
+> **Mode check first.** Only run in `windows-local` mode. In `termux-ubuntu` mode, refuse and tell the user — `scan_inventory.py` will fail because `D:\Code` doesn't exist (or isn't writable). In `other` mode, ask whether to reconfigure `_meta.root_path` first. The read-only Workflow 1 (just reading `d-code-repos.json`) is always safe.
 
 ```bash
 python .agents/skills/d-code/scripts/scan_inventory.py
@@ -158,6 +237,7 @@ For schema details, read `references/json-schema.md`.
 - `_meta.root_path` is the only platform-specific value; everything else is portable.
 - On macOS/Linux, edit the JSON's `_meta.root_path` to e.g. `~/Code` and re-run `scan_inventory.py`.
 - The user account detection (`is this my fork?`) hardcodes the GitHub username `carterwayneskhizeine`. Change via `--user` flag or by editing the script's `DEFAULT_GH_USER` constant.
+- **Termux (Android) + proot-distro Ubuntu**: this is the `termux-ubuntu` mode. The skill's clone / scan / backfill scripts need a real Code folder on a real filesystem — they will fail in proot-distro because `D:\Code` doesn't translate and `gh` may not be installed. Stay read-only in this mode; use the Windows machine for actual cloning. Use the detection snippet above; do not assume.
 
 ## Things to never do
 
@@ -165,6 +245,10 @@ For schema details, read `references/json-schema.md`.
 - **Don't run `git clone` directly.** Always go through `clone_repo.py` so the JSON stays in sync.
 - **Don't fabricate `parent` / `upstream` data.** If the fork status is unclear, mark the entry as `type: "upstream-clone"` with a `notes` field explaining the ambiguity.
 - **Don't delete a folder without explicit user confirmation.** Even if the conflict-resolution flow recommends it, the script will require typed confirmation of the folder name.
+- **Don't skip the environment check.** Always run the detection snippet before Workflow 2 or Workflow 3. Running `clone_repo.py` on Termux will silently fail or corrupt state.
+- **In `termux-ubuntu` mode, don't write to `data/`, scripts, or existing files.** Only read files and create new files under `docs/`. If the user asks to clone or scan, refuse and explain.
+- **In `other` mode, don't guess.** Stop and ask the user what to do — they may need to install `gh`, change `_meta.root_path`, or move to a different machine.
+- **Don't ask the user to run `download_stars.py` and "回填" as separate follow-ups.** Workflow 2 already covers both — just run them as part of the clone.
 
 ## References
 

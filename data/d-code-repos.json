@@ -3,9 +3,9 @@
     "description": "本地 Code 文件夹的仓库清单（单一数据源）",
     "root_path": "D:\\Code",
     "schema_version": 1,
-    "last_full_scan": "2026-06-27T18:24:12+08:00",
+    "last_full_scan": "2026-06-27T20:33:32+08:00",
     "gh_user": "carterwayneskhizeine",
-    "last_backfill_source_star": "2026-06-27T18:23:35+08:00"
+    "last_backfill_source_star": "2026-06-27T20:35:52+08:00"
   },
   "repos": [
     {
@@ -336,6 +336,17 @@
       "is_fork": false,
       "source_star": "ComposioHQ-awesome-claude-skills.md",
       "last_scanned": "2026-06-27T18:23:39+08:00",
+      "notes": null
+    },
+    {
+      "name": "Browser-BC",
+      "type": "upstream-clone",
+      "origin": "git@github.com:Einsia/Browser-BC.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "Einsia-Browser-BC.md",
+      "last_scanned": "2026-06-27T20:33:32+08:00",
       "notes": null
     },
     {
