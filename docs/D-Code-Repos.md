@@ -1,156 +1,243 @@
-# `D:\Code\` 仓库清单
+# `D:\Code\` 仓库清单 — 使用说明书
 
-> 范围：`D:\Code\` 下所有 86 个目录
-> GitHub 账号：`carterwayneskhizeine`
+> **本文件是 `data/d-code-repos.json` 的用户手册**。
+> JSON 是单一数据源，本文件解释 schema、常见查询、和更新方式。
 
-## 分类方法
+## TL;DR
 
-- 用 `git -C <dir> remote get-url origin` 拉每个目录的 remote
-- 用户自有 repo 用 `gh api repos/<owner>/<repo>` 查 `fork` 字段
-- API 拿不到的（私有 / 已删），交叉验证 `git -C <dir> remote get-url upstream`
-- 第三方账号下的 remote 不算"用户的 fork"，归入 *第三方 upstream clone*
-
-## 统计
-
-| 分类 | 数量 |
-| --- | ---: |
-| ✅ 自己的原创 / 非 fork | **16** |
-| 🍴 自己的 fork | **9** |
-| 📦 第三方 upstream clone（有 remote） | **42** |
-| ⚠️ 有 `.git` 但没任何 remote | **3** |
-| 📁 非 git 仓库 | **16** |
-| **合计** | **86** |
-
----
-
-## ✅ 自有原创 / 非 fork（16 个）
-
-| 目录 | 备注 |
+| 你想… | 怎么做 |
 | --- | --- |
-| CrazyTypewriter | |
-| GoldieRillChat | |
-| HyperBoard | |
-| LiteLLM_VPS | |
-| LiteLLMyamlDashboard | |
-| ai-os-dev | |
-| ai-os-eve | |
-| bazi | |
-| cv-web | |
-| fde-internal-technical-design | |
-| folder-location | |
-| github-stars | 当前所在项目 |
-| hermes-agent-windows-R | |
-| nexusweave | |
-| whitenote | |
-| y1 | |
+| 看 `D:\Code\` 里有什么 | `cat data/d-code-repos.json` 或用 `jq`（见下方查询示例） |
+| 知道哪些是 fork 哪些是 clone | `jq '.repos[] \| select(.type=="fork")' data/d-code-repos.json` |
+| 把 star 里的 X 克隆到 `D:\Code\` | `python .agents/skills/d-code/scripts/clone_repo.py vercel/eve` |
+| 重新扫一遍本地 | `python .agents/skills/d-code/scripts/scan_inventory.py` |
+| 跨平台（macOS / Linux） | 改 JSON 的 `_meta.root_path` 后重跑 scan |
+| 找 star 了但还没 clone 的 | `python .agents/skills/d-code/scripts/clone_repo.py --list-new` |
 
 ---
 
-## 🍴 自己的 fork（9 个）
+## 1. 文件位置
 
-| 目录 | upstream（fork 自…） | 检测方式 |
+```
+github-stars/
+├── data/
+│   └── d-code-repos.json    ← 唯一数据源（_meta + repos[]）
+├── .agents/skills/d-code/
+│   ├── SKILL.md             ← skill 主文件（agent 怎么用这个数据）
+│   ├── references/
+│   │   └── json-schema.md   ← 字段详细规范
+│   └── scripts/
+│       ├── scan_inventory.py ← 扫描本地 → 写 JSON
+│       └── clone_repo.py     ← 克隆 + 冲突检测 + 更新 JSON
+└── docs/
+    └── D-Code-Repos.md      ← 本文件
+```
+
+> **改 JSON 之前先读一下 [`references/json-schema.md`](../.agents/skills/d-code/references/json-schema.md)**——那里有完整的字段定义和示例。
+
+---
+
+## 2. Schema 一览
+
+```json
+{
+  "_meta": {
+    "description":     "本地 Code 文件夹的仓库清单（单一数据源）",
+    "root_path":       "D:\\Code",
+    "schema_version":  1,
+    "last_full_scan":  "2026-06-27T17:58:00+08:00",
+    "gh_user":         "carterwayneskhizeine"
+  },
+  "repos": [
+    {
+      "name":         "a2ui",
+      "type":         "upstream-clone",
+      "origin":       "git@github.com:a2ui-project/a2ui.git",
+      "upstream":     null,
+      "parent":       null,
+      "is_fork":      false,
+      "source_star":  null,
+      "last_scanned": "2026-06-27T17:57:36+08:00",
+      "notes":        null
+    }
+  ]
+}
+```
+
+### 5 种 `type`
+
+| `type` | 含义 | 例子 |
 | --- | --- | --- |
-| MultiAgenticRAG | `nicoladisabato/MultiAgenticRAG` | `upstream` remote（API 404，原仓可能被删 / 私有） |
-| SkillOpt | `microsoft/SkillOpt` | API + `upstream` remote |
-| atlasclaw | `CloudChef/atlasclaw` | API + `upstream` remote |
-| cua | `trycua/cua` | API |
-| goldie-fork | `thedotmack/claude-mem` | API（本地叫 goldie-fork，remote 指向 claude-mem） |
-| hermes-web-ui | `EKKOLearnAI/hermes-studio` | API + `upstream` remote（注意 upstream 写的是 hermes-web-ui，但 API 的 parent 是 hermes-studio，可能曾重命名） |
-| oh-my-hermes | `Salomondiei08/oh-my-hermes` | API |
-| stokowski | `Sugar-Coffee/stokowski` | API + `upstream` remote |
-| ziwei | `ruijayfeng/ziwei` | API |
+| `original` | 你的原创 repo（`is_fork: false`） | `ai-os-eve`, `bazi`, `whitenote` |
+| `fork` | 你的 fork（有 `upstream` 指向父仓） | `cua → trycua/cua`, `goldie-fork → thedotmack/claude-mem` |
+| `upstream-clone` | 第三方 repo 的直接 clone | `a2ui`, `langgraph`, `openui` |
+| `no-remote-git` | 本地 `git init` 但没 remote | `goldie_jobs`, `langchain_demo`, `reverse-website` |
+| `non-git` | 没 `.git` 的纯目录 | `Goldie`, `opencode`, `hermes_chat` |
+
+完整字段语义见 [`references/json-schema.md`](../.agents/skills/d-code/references/json-schema.md)。
 
 ---
 
-## 📦 第三方 upstream clone（42 个）
+## 3. 常见查询（`jq` 速查）
 
-这些是直接 `git clone` 别人 repo 的本地副本，不算你的 fork。
+需要 `jq`（[安装](https://jqlang.github.io/jq/)）。所有命令都在 `github-stars/` 根目录运行。
 
-| 目录 | upstream owner/repo |
+```bash
+# 总览
+jq '.repos | length' data/d-code-repos.json           # 总数
+jq '._meta.last_full_scan' data/d-code-repos.json     # 上次扫描时间
+
+# 按类型筛选
+jq '.repos[] | select(.type=="fork") | .name' data/d-code-repos.json
+jq '.repos[] | select(.type=="upstream-clone") | .name' data/d-code-repos.json
+
+# Fork 详情（看是从哪个父仓 fork 的）
+jq '.repos[] | select(.type=="fork") | "\(.name) → \(.parent)"' data/d-code-repos.json
+
+# 找还没从 star 克隆下来的（交叉 data/stars_mapping.json）
+jq -r '.repos[] | select(.source_star==null) | .name' data/d-code-repos.json
+```
+
+### 编程式访问（Python）
+
+```python
+import json
+with open("data/d-code-repos.json", encoding="utf-8") as f:
+    inv = json.load(f)
+
+root = inv["_meta"]["root_path"]
+forks = [r for r in inv["repos"] if r["type"] == "fork"]
+print(f"root={root}, fork count={len(forks)}")
+```
+
+---
+
+## 4. 跟其它文件的关系
+
+```
+stars-readme/Owner-Repo.md    ←  star 过的 repo 的 README（download_stars.py 产出）
+           ↓ 怎么用
+data/stars_mapping.json       ←  Owner-Repo.md → GitHub URL 映射
+           ↓ 怎么用
+data/d-code-repos.json        ←  本地 clone 状态（scan_inventory.py 产出）  ★ 唯一数据源
+           ↓ 怎么用
+docs/D-Code-Repos.md          ←  本文件
+```
+
+找 **star 了但还没 clone** 的 repo：
+
+```bash
+python .agents/skills/d-code/scripts/clone_repo.py --list-new
+```
+
+输出形如：
+```
+142 starred repos not yet cloned:
+  anthropics/skills                            ← stars-readme/anthropics-skills.md
+  ...
+```
+
+---
+
+## 5. 怎么更新 JSON
+
+### 5.1 重新扫描本地
+
+```bash
+python .agents/skills/d-code/scripts/scan_inventory.py
+```
+
+会：
+1. 遍历 `_meta.root_path` 下所有子目录
+2. 对每个目录读 `.git/config`、必要时调 `gh api` 查 fork 状态
+3. **保留** 已有 entry 的 `source_star` 和 `notes` 字段，以及 `_meta` 里所有未管理的字段
+4. 写回 `data/d-code-repos.json`
+
+加 `--diff` 只看变化不写：
+```bash
+python .agents/skills/d-code/scripts/scan_inventory.py --diff
+```
+
+加 `--verify` 走磁盘逐字段对账（**不调 `gh api`、不写文件**）：
+```bash
+python .agents/skills/d-code/scripts/scan_inventory.py --verify
+echo $?  # 0 = clean，1 = 有漂移
+```
+
+| 模式 | 调 `gh api` | 写 JSON | 用途 |
+| --- | ---: | ---: | --- |
+| `scan_inventory.py` | 是 | 是 | 全量重扫+写 |
+| `scan_inventory.py --diff` | 是 | 否 | 全量重扫+看 diff（不写）|
+| `scan_inventory.py --verify` | **否** | **否** | 轻量逐字段对账（CI / pre-commit）|
+| `scan_inventory.py --backfill-source-star` | 否 | 仅匹配时 | 回填 `source_star` |
+
+### 5.2 回填 `source_star`
+
+很多 upstream-clone 是在 d-code skill 出现**之前**手动 clone 的，JSON 里它们的 `source_star` 是 `null`，没法判断是"老 clone 找不到 star 来源"还是"真没 star 过"。
+
+回填脚本会把 `data/stars_mapping.json` 的 key（`Owner-Repo.md`）和 JSON 里 `upstream-clone` 的 `origin` 反向比对，能匹配上的就填上：
+
+```bash
+python .agents/skills/d-code/scripts/scan_inventory.py --backfill-source-star
+```
+
+- **匹配规则**：从 `origin` 提取 `owner/repo` → 查 `<owner>-<repo>.md`（大小写不敏感）
+- **只改 `null` 的**：已有 `source_star` 的不会动
+- **写条件**：至少匹配到 1 个才写 JSON（no-op 不写）
+- **副作用**：更新 `_meta.last_backfill_source_star`；scan 不会清掉这个字段
+
+匹配不上通常意味着：
+- 你 clone 过但没 star / 已 unstar（如 `RAG-Knowledge-Base`）
+- 仓库转手了（如 `Understand-Anything` 从 `Lum1104` 改到 `Egonex-AI`）
+
+**这两种情况保留 `null` 是对的，不要手动瞎填。**
+
+### 5.2 克隆新仓（带冲突检测）
+
+```bash
+# 三种 target 形式都支持
+python .agents/skills/d-code/scripts/clone_repo.py vercel/eve
+python .agents/skills/d-code/scripts/clone_repo.py https://github.com/a2ui-project/a2ui
+python .agents/skills/d-code/scripts/clone_repo.py stars-readme/3DTopia-MVPaint.md
+```
+
+**4 种冲突处理**：
+
+| 本地状态 | 行为 |
 | --- | --- |
-| ComposioHQ-awesome-claude-skills | `ComposioHQ/awesome-claude-skills` |
-| Houdini-Agent | `Kazama-Suichiku/Houdini-Agent` |
-| MiniMax-AI-skills | `MiniMax-AI/skills` |
-| OfficeCLI | `iOfficeAI/OfficeCLI` |
-| OpenCLI | `jackwener/OpenCLI` |
-| RAG-Knowledge-Base | `WangLin0/RAG-Knowledge-Base` |
-| Romanescu11-hermes-skill-factory | `Romanescu11/hermes-skill-factory` |
-| Understand-Anything | `Lum1104/Understand-Anything` |
-| YuJunZhiXue-github-skill-forge | `YuJunZhiXue/github-skill-forge` |
-| a2ui | `a2ui-project/a2ui` |
-| addyosmani-agent-skills | `addyosmani/agent-skills` |
-| aicommits | `Nutlope/aicommits` |
-| anthropics-skills | `anthropics/skills` |
-| chatbox | `chatboxai/chatbox` |
-| cherry-studio | `CherryHQ/cherry-studio` |
-| claude-mem | `thedotmack/claude-mem` |
-| doris | `apache/doris` |
-| eve | `vercel/eve` |
-| fireworks-skill-memory | `yizhiyanhua-ai/fireworks-skill-memory` |
-| google-gemini-gemini-skills | `google-gemini/gemini-skills` |
-| google-skills | `google/skills` |
-| hermes-agent | `NousResearch/hermes-agent` |
-| huangserva-skill-prompt-generator | `huangserva/skill-prompt-generator` |
-| knowledge-catalog | `GoogleCloudPlatform/knowledge-catalog` |
-| langgraph | `langchain-ai/langgraph` |
-| markitdown | `microsoft/markitdown` |
-| mattpocock-skills | `mattpocock/skills` |
-| mem0 | `mem0ai/mem0` |
-| mempalace | `MemPalace/mempalace` |
-| mesh-splatting | `meshsplatting/mesh-splatting` |
-| nanoGPT | `karpathy/nanoGPT` |
-| nanobot | `HKUDS/nanobot` |
-| openclaw | `openclaw/openclaw` |
-| openui | `thesysdev/openui` |
-| pi | `earendil-works/pi` |
-| planning-with-files | `OthmanAdi/planning-with-files` |
-| ponytail | `DietrichGebert/ponytail` |
-| portable-hermes-agent | `aivrar/portable-hermes-agent` |
-| rag-web-ui | `rag-web-ui/rag-web-ui` |
-| vscodium | `VSCodium/vscodium` |
-| wx-cli | `jackwener/wx-cli` |
-| yaojingang-yao-meta-skill | `yaojingang/yao-meta-skill` |
+| 文件夹不存在 | 跑 `gh repo clone <owner>/<repo> <repo>`，名字保持原样（`MVPaint` 而不是 `3DTopia-MVPaint`） |
+| 存在且 origin 相同 | 跳过，提示"已存在" |
+| 存在且是同一 fork 家族 | 提示「可以加 upstream remote」并退出 |
+| 存在但完全不同的 repo | 弹 3 选项：取消 / 改名字（建议加 owner 前缀） / 删了重来（需输入文件夹名确认） |
+
+成功后自动更新 `data/d-code-repos.json`，并把对应的 `stars-readme/Owner-Repo.md` 写入 `source_star` 字段。
+
+加 `--yes` 跳过交互（冲突时默认用"改名字"）：
+```bash
+python .agents/skills/d-code/scripts/clone_repo.py --yes <target>
+```
 
 ---
 
-## ⚠️ 有 `.git` 但没任何 remote（3 个）
+## 6. 跨平台 / 换机器
 
-本地 `git init` 了但没 `git remote add`，也没推上去。
+`skill/scripts` 是平台无关的（用 `pathlib`）。要把这份清单挪到另一台机器：
 
-| 目录 | 建议 |
-| --- | --- |
-| `goldie_jobs` | 想保留就 `gh repo create`；不想要直接删目录 |
-| `langchain_demo` | 同上 |
-| `reverse-website` | 同上 |
+1. 整个 `github-stars/` 拷贝过去（含 `data/`、`.agents/skills/`、`stars-readme/`）
+2. 在新机器装好 `gh` CLI 并 `gh auth login`
+3. 编辑 `data/d-code-repos.json` 的 `_meta.root_path`：
+   - Windows: `"D:\\Code"`
+   - macOS: `"/Users/<you>/Code"`
+   - Linux: `"/home/<you>/Code"`
+4. 跑 `python .agents/skills/d-code/scripts/scan_inventory.py` 重新生成
 
----
-
-## 📁 非 git 仓库（16 个）
-
-这些目录里没有 `.git`，是纯本地项目 / 下载的代码 / 实验目录。
-
-| 目录 | 备注 |
-| --- | --- |
-| `ClawX_v1` | |
-| `Goldie` | |
-| `PixelStreamingInfrastructure` | |
-| `X` | |
-| `bazi-dev` | |
-| `clawdbot0403` | |
-| `clawdbot_for_whitenote` | |
-| `github_star` | |
-| `goldierillsite` | |
-| `hermes_chat` | |
-| `langchain_learning` | |
-| `node-switch` | |
-| `openclaw-feishu` | |
-| `opencode` | |
-| `pinokio_openclaw` | |
-| `pinokioopenclawguide` | |
+如果换 GitHub 账号，改 `_meta.gh_user`（或传 `--user <name>`），脚本会用新账号判定"是不是你的 fork"。
 
 ---
 
-## 复现这份报告
+## 7. 复现这份清单的旧方式
+
+保留旧版纯 bash 复现脚本作为参考（现在推荐用上面的 `scan_inventory.py` 替代）：
 
 ```bash
 cd /d/Code
@@ -177,3 +264,7 @@ for d in */; do
   [ -n "$up" ] && printf "%-40s upstream: %s\n" "${d%/}" "$up"
 done
 ```
+
+## 许可
+
+本文档与 `data/d-code-repos.json` 均按 MIT 发布（与项目主 `LICENSE` 一致）。

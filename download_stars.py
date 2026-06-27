@@ -3,12 +3,12 @@
 Download README.md files from GitHub starred repositories.
 
 Renames each file to {owner}-{repo}.md (e.g. Helvesec-rmux.md) and writes a
-JSON mapping table `stars_mapping.json` in the project root so you can look
+JSON mapping table `data/stars_mapping.json` so you can look
 up the original URL from the local filename.
 
 This script is **incremental**: once a repo has been processed (downloaded
 successfully OR found to have no README) its `full_name` is recorded in
-`stars_state.json`. Subsequent runs only fetch new stars. Use
+`data/stars_state.json`. Subsequent runs only fetch new stars. Use
 `--reset-state` to start over from scratch, or `--include-known` to ignore
 the state and re-process everything.
 
@@ -23,7 +23,7 @@ Usage:
     python download_stars.py --all             # process every new star
     python download_stars.py --limit 50        # first 50 new stars
     python download_stars.py --include-known   # re-process all 1206 from scratch
-    python download_stars.py --rebuild-mapping # only rebuild stars_mapping.json
+    python download_stars.py --rebuild-mapping # only rebuild data/stars_mapping.json
                                                 # from files already on disk
     python download_stars.py --reset-state     # clear the state, then download
 """
@@ -38,8 +38,9 @@ from time import sleep
 
 PROJECT_DIR = Path(__file__).resolve().parent
 OUTPUT_DIR = PROJECT_DIR / "stars-readme"
-MAPPING_PATH = PROJECT_DIR / "stars_mapping.json"
-STATE_PATH = PROJECT_DIR / "stars_state.json"
+DATA_DIR = PROJECT_DIR / "data"
+MAPPING_PATH = DATA_DIR / "stars_mapping.json"
+STATE_PATH = DATA_DIR / "stars_state.json"
 PAGE_SIZE = 100  # GitHub API max per page
 README_EXTS = ("md", "rst", "txt", "adoc", "org")
 
@@ -229,17 +230,17 @@ def main() -> int:
     parser.add_argument("--delay", type=float, default=0.5,
                         help="Seconds to sleep between requests (default 0.5).")
     parser.add_argument("--include-known", action="store_true",
-                        help="Ignore stars_state.json and re-process every "
+                        help="Ignore data/stars_state.json and re-process every "
                              "starred repo from scratch.")
     parser.add_argument("--full-scan", action="store_true",
                         help="Fetch every page instead of stopping once a page "
                              "is fully known. Use if you suspect the state is "
                              "out of sync with GitHub.")
     parser.add_argument("--reset-state", action="store_true",
-                        help="Delete stars_state.json before running, so every "
+                        help="Delete data/stars_state.json before running, so every "
                              "star is treated as new.")
     parser.add_argument("--rebuild-mapping", action="store_true",
-                        help="Don't download anything; rebuild stars_mapping.json "
+                        help="Don't download anything; rebuild data/stars_mapping.json "
                              "from files already on disk + the starred list.")
     args = parser.parse_args()
 
@@ -248,7 +249,7 @@ def main() -> int:
     if args.reset_state:
         if STATE_PATH.exists():
             STATE_PATH.unlink()
-            print("Cleared stars_state.json")
+            print("Cleared data/stars_state.json")
     state = load_state()
     known = set(state.get("known", []))
 

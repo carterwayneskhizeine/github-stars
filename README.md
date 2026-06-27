@@ -4,18 +4,28 @@
 文件名重命名为 `Owner-RepoName.md`（例如 `Helvesec-rmux.md`），
 方便你离线阅读、检索和全文搜索。
 
-> 配套文件 `stars_mapping.json` 记录了本地文件名 ↔ 原始 GitHub 网址
+> 配套文件 `data/stars_mapping.json` 记录了本地文件名 ↔ 原始 GitHub 网址
 > 的对应表，可以随时反查。
 
 ## 目录结构
 
 ```
 D:\Code\github-stars\
-├── README.md              ← 你正在看这个
-├── download_stars.py      ← 唯一的脚本
-├── stars_mapping.json     ← 本地文件名 → GitHub URL 对照表
-├── stars_state.json       ← 增量下载用的状态文件（哪些 star 已处理）
-└── stars-readme\          ← 所有下载下来的 README 都放这里
+├── README.md                ← 你正在看这个
+├── download_stars.py        ← 主脚本：把 GitHub star 的 README 拉下来
+├── data/                    ← 所有 JSON 数据
+│   ├── stars_mapping.json   ← 本地文件名 → GitHub URL 对照表
+│   ├── stars_state.json     ← 增量下载用的状态文件（哪些 star 已处理）
+│   └── d-code-repos.json    ← D:\Code\ 仓库清单（d-code skill 的数据源）
+├── .agents/skills/
+│   └── d-code/              ← 配套 skill：管理本地 D:\Code 仓库
+│       ├── SKILL.md
+│       ├── scripts/         ← scan_inventory.py / clone_repo.py
+│       ├── references/      ← json-schema.md
+│       └── evals/           ← 测试用例
+├── docs/
+│   └── D-Code-Repos.md      ← data/d-code-repos.json 的使用说明书
+└── stars-readme\            ← 所有下载下来的 README 都放这里
     ├── Helvesec-rmux.md
     ├── langchain-ai-langgraph.md
     └── ...
@@ -59,7 +69,7 @@ python download_stars.py --rebuild-mapping
 ## 增量下载
 
 脚本是**幂等且增量**的：每个被处理过的 star（无论下载成功还是确认没有
-README）都会写入 `stars_state.json`。下次再跑时，脚本只会处理**新增的**
+README）都会写入 `data/stars_state.json`。下次再跑时，脚本只会处理**新增的**
 star，已经处理过的会自动跳过。
 
 ### 分页短路（不会拉满所有页）
@@ -98,11 +108,11 @@ python download_stars.py --rebuild-mapping
 | `--all` | 处理所有**未处理过**的 star。 |
 | `--delay SECONDS` | 每次 API 请求后等多少秒，默认 0.5（GitHub 限流保护）。 |
 | `--include-known` | 忽略 state，把所有 1206 个 star 重新处理一遍（会拉满所有页）。 |
-| `--reset-state` | 删掉 `stars_state.json` 再跑。和 `--include-known` 区别是 state 仍然会重建。 |
+| `--reset-state` | 删掉 `data/stars_state.json` 再跑。和 `--include-known` 区别是 state 仍然会重建。 |
 | `--full-scan` | 关闭分页短路，强制拉取所有页。怀疑 state 与 GitHub 不同步时使用。 |
-| `--rebuild-mapping` | 不下载，只根据磁盘上已有的 `*.md` 重新生成 `stars_mapping.json`。 |
+| `--rebuild-mapping` | 不下载，只根据磁盘上已有的 `*.md` 重新生成 `data/stars_mapping.json`。 |
 
-## `stars_mapping.json` 用法
+## `data/stars_mapping.json` 用法
 
 ```json
 {
@@ -115,14 +125,14 @@ python download_stars.py --rebuild-mapping
 ### 文件名 → 网址
 
 ```bash
-python -c "import json; m=json.load(open('stars_mapping.json')); print(m['Helvesec-rmux.md'])"
+python -c "import json; m=json.load(open('data/stars_mapping.json')); print(m['Helvesec-rmux.md'])"
 # https://github.com/Helvesec/rmux
 ```
 
 ### 网址 → 文件名
 
 ```bash
-python -c "import json; m={v:k for k,v in json.load(open('stars_mapping.json')).items() if not k.startswith('_')}; print(m['https://github.com/Helvesec/rmux'])"
+python -c "import json; m={v:k for k,v in json.load(open('data/stars_mapping.json')).items() if not k.startswith('_')}; print(m['https://github.com/Helvesec/rmux'])"
 # Helvesec-rmux.md
 ```
 
@@ -130,7 +140,7 @@ python -c "import json; m={v:k for k,v in json.load(open('stars_mapping.json')).
 
 ```bash
 # 需要先装 jq (https://jqlang.github.io/jq/)
-jq 'to_entries | map(select(.key | contains("llm"))) | from_entries' stars_mapping.json
+jq 'to_entries | map(select(.key | contains("llm"))) | from_entries' data/stars_mapping.json
 ```
 
 ### 在编辑器里搜
@@ -145,8 +155,8 @@ jq 'to_entries | map(select(.key | contains("llm"))) | from_entries' stars_mappi
 A：再跑一次即可，state 已经记录了已处理过的 star，下次只会处理剩下的。
 
 **Q：某个 star 之前没有 README，后来作者加上了。**
-A：删掉 `stars_state.json` 里对应的 `owner/repo` 条目（用编辑器打开
-`stars_state.json` 删一行），再跑一次脚本即可重新拉取。
+A：删掉 `data/stars_state.json` 里对应的 `owner/repo` 条目（用编辑器打开
+`data/stars_state.json` 删一行），再跑一次脚本即可重新拉取。
 
 **Q：文件名为什么是 `Owner-Repo.md` 而不是 `Repo.md`？**
 A：避免冲突——GitHub 上有大量同名 repo（例如 `awesome`、`demo`），
@@ -156,14 +166,64 @@ A：避免冲突——GitHub 上有大量同名 repo（例如 `awesome`、`demo`
 A：README 单文件就够阅读了，单文件比克隆整个 repo 省 100 倍磁盘；
 另外 fork / 私有的 repo 不会出现在 stars 里，所以单文件最干净。
 
+## d-code skill：管理本地 `D:\Code\` 仓库
+
+本项目除了拉 GitHub star 的 README，还挂了一个配套 skill：
+[`.agents/skills/d-code/`](.agents/skills/d-code/)。它专门管你 `D:\Code\`
+下的所有本地仓库——区分 fork / 第三方 clone / 原创，扫描分类、把 star
+过的 repo 克隆下来，并带冲突检测（同名文件夹已存在时弹选项让你决定）。
+
+### 核心命令
+
+```bash
+# 1. 重新扫描本地 D:\Code，写回 data/d-code-repos.json
+python .agents/skills/d-code/scripts/scan_inventory.py
+
+# 2. 克隆新仓（三种 target 形式都支持）
+python .agents/skills/d-code/scripts/clone_repo.py vercel/eve
+python .agents/skills/d-code/scripts/clone_repo.py https://github.com/a2ui-project/a2ui
+python .agents/skills/d-code/scripts/clone_repo.py stars-readme/3DTopia-MVPaint.md
+
+# 3. 列出 star 了但还没克隆到 D:\Code 的 repo
+python .agents/skills/d-code/scripts/clone_repo.py --list-new
+```
+
+也可以直接在跟 agent 对话时说"我 D 盘有哪些 fork"、"把 stars-readme
+里的 X 克隆下来"或"扫一下本地仓库"，skill 会读 `data/d-code-repos.json`
+并跑对应的脚本。
+
+### 关键不变量
+
+- **克隆文件夹名保持原样**：`MVPaint` 而不是 `3DTopia-MVPaint`（避免 owner
+  前缀污染本地目录）
+- **冲突时弹 3 选项**：取消 / 用不同名字（默认 `<owner>-<repo>`）/ 删了重来
+- **单一数据源**：`data/d-code-repos.json`（由 `scan_inventory.py` 重新生成）
+- **跨平台**：改 JSON 的 `_meta.root_path` 即可在 macOS / Linux 复用
+
+### 触发场景（agent 会自动用这个 skill）
+
+- "我D盘Code文件夹里有什么" / "我的D盘" / "D盘Code"
+- "Code文件夹" / "本地有哪些项目" / "我本地 clone 了哪些"
+- "克隆到Code文件夹" / "把 stars-readme 里的 X 克隆下来"
+- "扫一下本地仓库" / "更新 D 盘清单"
+- "d-code-repos.json 怎么用" / "data/ 那个 json"
+
+详细使用说明见 [`docs/D-Code-Repos.md`](docs/D-Code-Repos.md)；
+JSON schema 见 [`.agents/skills/d-code/references/json-schema.md`](.agents/skills/d-code/references/json-schema.md)；
+测试用例见 [`.agents/skills/d-code/evals/evals.json`](.agents/skills/d-code/evals/evals.json)。
+
 ## 重新部署到另一台机器
 
-把这整个文件夹（包括 `stars-readme/`、`stars_mapping.json`、
-`stars_state.json`）拷贝到新机器，登录 `gh` 之后直接跑：
+把这整个文件夹（包括 `stars-readme/`、`data/stars_mapping.json`、
+`data/stars_state.json`、`data/d-code-repos.json`、`.agents/`）拷贝到
+新机器，登录 `gh` 之后直接跑：
 
 ```bash
 python download_stars.py --rebuild-mapping   # 如果 mapping 丢了
 python download_stars.py --all               # 增量下完剩下的
+
+# 验证 d-code 清单
+python .agents/skills/d-code/scripts/scan_inventory.py
 ```
 
 ## 许可
