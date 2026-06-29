@@ -1,7 +1,7 @@
-# `data/d-code-repos.json` schema reference
+# `data/c-code-repos.json` schema reference
 
 This is the single source of truth for what's inside the user's local code folder
-(default: `D:\Code\` on Windows). Both bundled scripts (`scan_inventory.py`,
+(default: `C:\Users\gotmo\Code` on Windows). Both bundled scripts (`scan_inventory.py`,
 `clone_repo.py`) read and write this file.
 
 ## Top-level shape
@@ -18,7 +18,7 @@ This is the single source of truth for what's inside the user's local code folde
 | Field | Type | Required | Notes |
 | --- | --- | ---: | --- |
 | `description` | string | yes | Human-readable purpose. Don't change. |
-| `root_path` | string | yes | Absolute path to the local code folder. `D:\Code` on Windows, `~/Code` on macOS, etc. **Change this when moving the project to another machine.** |
+| `root_path` | string | yes | Absolute path to the local code folder. `C:\Users\gotmo\Code` on Windows, `~/Code` on macOS, etc. **Change this when moving the project to another machine.** |
 | `schema_version` | integer | yes | Currently `1`. Bumped if the schema changes. |
 | `last_full_scan` | string (ISO 8601) | yes | When `scan_inventory.py` last regenerated this file. |
 | `gh_user` | string | yes | GitHub username used to detect user-owned repos. Default: `carterwayneskhizeine`. |
@@ -118,7 +118,7 @@ scan, and individual entries get the timestamp from the scan that last saw them.
 - `data/stars_mapping.json` maps `Owner-Repo.md` → GitHub URL.
   To find "starred but not yet cloned" repos, diff the two.
 - `download_stars.py` (in project root) is the script that builds
-  `stars-readme/` and `stars_mapping.json`. The `d-code` skill is its sibling.
+  `stars-readme/` and `stars_mapping.json`. The `c-code` skill is its sibling.
 
 ## Validation
 

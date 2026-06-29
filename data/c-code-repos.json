@@ -1,0 +1,122 @@
+{
+  "_meta": {
+    "description": "本地 Code 文件夹的仓库清单（单一数据源）",
+    "root_path": "C:\\Users\\gotmo\\Code",
+    "schema_version": 1,
+    "last_full_scan": "2026-06-29T21:02:13+08:00",
+    "gh_user": "carterwayneskhizeine",
+    "last_backfill_source_star": "2026-06-27T23:02:32+08:00"
+  },
+  "repos": [
+    {
+      "name": "ai-os-eve",
+      "type": "original",
+      "origin": "https://github.com/carterwayneskhizeine/ai-os-eve.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-06-29T21:02:03+08:00",
+      "notes": null
+    },
+    {
+      "name": "bazi",
+      "type": "original",
+      "origin": "https://github.com/carterwayneskhizeine/bazi",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-06-29T21:02:04+08:00",
+      "notes": null
+    },
+    {
+      "name": "CrazyTypewriter",
+      "type": "original",
+      "origin": "https://github.com/carterwayneskhizeine/CrazyTypewriter.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-06-29T21:02:06+08:00",
+      "notes": null
+    },
+    {
+      "name": "fde-internal-technical-design",
+      "type": "original",
+      "origin": "https://github.com/carterwayneskhizeine/fde-internal-technical-design.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-06-29T21:02:07+08:00",
+      "notes": null
+    },
+    {
+      "name": "github-stars",
+      "type": "original",
+      "origin": "git@github.com:carterwayneskhizeine/github-stars.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-06-29T21:02:09+08:00",
+      "notes": null
+    },
+    {
+      "name": "LiteLLM_VPS",
+      "type": "original",
+      "origin": "https://github.com/carterwayneskhizeine/LiteLLM_VPS.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-06-29T21:02:11+08:00",
+      "notes": null
+    },
+    {
+      "name": "whitenote",
+      "type": "original",
+      "origin": "https://github.com/carterwayneskhizeine/whitenote.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-06-29T21:02:12+08:00",
+      "notes": null
+    },
+    {
+      "name": "dotfiles",
+      "type": "upstream-clone",
+      "origin": "https://github.com/lavantien/dotfiles.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-06-29T21:02:07+08:00",
+      "notes": null
+    },
+    {
+      "name": "Code-zip",
+      "type": "non-git",
+      "origin": null,
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-06-29T21:02:06+08:00",
+      "notes": null
+    },
+    {
+      "name": "langchain_learning",
+      "type": "non-git",
+      "origin": null,
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-06-29T21:02:11+08:00",
+      "notes": null
+    }
+  ]
+}

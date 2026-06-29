@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """scan_inventory.py — walk the local code folder and regenerate
-data/d-code-repos.json with one entry per subdirectory.
+data/c-code-repos.json with one entry per subdirectory.
 
 Usage:
     python scan_inventory.py                    # full scan, write JSON
@@ -31,14 +31,14 @@ from pathlib import Path
 
 # ---------- paths ----------
 
-# Path layout: <project>/.agents/skills/d-code/scripts/scan_inventory.py
-# So PROJECT_DIR is 3 levels up from this file (skip scripts/ → d-code/ → skills/ → .agents/ → <project>).
+# Path layout: <project>/.agents/skills/c-code/scripts/scan_inventory.py
+# So PROJECT_DIR is 3 levels up from this file (skip scripts/ → c-code/ → skills/ → .agents/ → <project>).
 SCRIPT_DIR = Path(__file__).resolve().parent
 SKILL_DIR = SCRIPT_DIR.parent
 PROJECT_DIR = SKILL_DIR.parent.parent.parent
-DEFAULT_JSON = PROJECT_DIR / "data" / "d-code-repos.json"
+DEFAULT_JSON = PROJECT_DIR / "data" / "c-code-repos.json"
 DEFAULT_MAPPING = PROJECT_DIR / "data" / "stars_mapping.json"
-DEFAULT_ROOT_HINT = "D:\\Code"
+DEFAULT_ROOT_HINT = "C:\\Users\\gotmo\\Code"
 DEFAULT_GH_USER = "carterwayneskhizeine"
 
 
@@ -478,7 +478,7 @@ def print_drift_report(drift: dict, root: Path, existing: dict) -> None:
 
 def main() -> int:
     p = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    p.add_argument("--root", help="Override root path (else read from JSON's _meta.root_path, then default D:\\Code)")
+    p.add_argument("--root", help="Override root path (else read from JSON's _meta.root_path, then default C:\\Users\\gotmo\\Code)")
     p.add_argument("--json", help=f"Override JSON path (default: {DEFAULT_JSON})")
     p.add_argument("--user", default=DEFAULT_GH_USER, help=f"GitHub username (default: {DEFAULT_GH_USER})")
     p.add_argument("--diff", action="store_true", help="Show diff vs existing JSON, don't write")

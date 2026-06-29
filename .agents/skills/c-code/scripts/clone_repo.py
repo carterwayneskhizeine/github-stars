@@ -16,7 +16,7 @@ The target is the FIRST positional argument. The script:
      - same fork family             → tells user, exits
      - totally different repo       → interactive: cancel / rename / replace
   4. Otherwise runs `gh repo clone <owner>/<repo> <folder>`.
-  5. On success, updates data/d-code-repos.json.
+  5. On success, updates data/c-code-repos.json.
 
 Pass --yes to skip the interactive prompt (uses "rename" as default on conflict).
 """
@@ -30,12 +30,12 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-# Path layout: <project>/.agents/skills/d-code/scripts/clone_repo.py
+# Path layout: <project>/.agents/skills/c-code/scripts/clone_repo.py
 # So PROJECT_DIR is 3 levels up from this file.
 SCRIPT_DIR = Path(__file__).resolve().parent
 SKILL_DIR = SCRIPT_DIR.parent
 PROJECT_DIR = SKILL_DIR.parent.parent.parent
-DEFAULT_JSON = PROJECT_DIR / "data" / "d-code-repos.json"
+DEFAULT_JSON = PROJECT_DIR / "data" / "c-code-repos.json"
 STARS_README_DIR = PROJECT_DIR / "stars-readme"
 STARS_MAPPING = PROJECT_DIR / "data" / "stars_mapping.json"
 
@@ -269,7 +269,7 @@ def main() -> int:
 
     json_path = Path(args.json) if args.json else DEFAULT_JSON
     data = load_json(json_path)
-    root = Path(args.root or data.get("_meta", {}).get("root_path") or "D:\\Code")
+    root = Path(args.root or data.get("_meta", {}).get("root_path") or "C:\\Users\\gotmo\\Code")
 
     if args.list_new:
         uncloned = list_uncloned_stars(json_path)
@@ -294,7 +294,7 @@ def main() -> int:
         print(
             f"WARNING: --root '{root}' differs from JSON's _meta.root_path "
             f"'{json_root}'. Skipping JSON update so the production inventory "
-            f"stays in sync with the real D:\\Code. Pass --json to point at a "
+            f"stays in sync with the real Code folder. Pass --json to point at a "
             f"sandbox JSON if you want to test there.",
             file=sys.stderr,
         )
