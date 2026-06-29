@@ -1,0 +1,75 @@
+{
+  "skill_name": "code-zip-extract",
+  "evals": [
+    {
+      "id": 1,
+      "name": "happy_path_normal",
+      "prompt": "解压 C:\\Users\\gotmo\\Code\\Code-zip\\memorix.7z 到 C:\\Users\\gotmo\\Code 文件夹里",
+      "expected_output": "Successfully extracts the archive into C:\\Users\\gotmo\\Code\\memorix\\, runs the inventory chain (scan + backfill + verify), appends one entry to C:\\Users\\gotmo\\Code\\Code-zip\\extracted.json, and reports the matched inventory entry. For memorix the expected type is upstream-clone and source_star should auto-fill to AVIDS2-memorix.md.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "bare_name_lookup",
+      "prompt": "install memorix",
+      "expected_output": "Should resolve 'memorix' by appending .7z and searching <code-zip>/. Same end state as happy_path_normal. Tests the basename-to-path resolution path used when the user types `memorix` instead of the full path.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "name": "nested_top_level_folder",
+      "prompt": "解压 C:\\Users\\gotmo\\Code\\Code-zip\\<some-7z-with-nested-folder>.7z （归档内部是 memo/memo/... 嵌套结构）",
+      "expected_output": "Script detects the doubled top-level via 7z l output (X and X entries), sets project_name=memo, extracts to <code-dir>/memo, then promotes any memo/memo/* up one level so the final tree is <code-dir>/memo/<files>. End result: a single memo/ folder on disk, ledger entry has project_name='memo' (no /memo/memo/ leakage), scan_inventory.py classifies it (likely upstream-clone if origin is third-party).",
+      "files": []
+    },
+    {
+      "id": 4,
+      "name": "target_already_exists_refuses",
+      "prompt": "再次解压 memorix.7z （目标文件夹 C:\\Users\\gotmo\\Code\\memorix 已经存在）",
+      "expected_output": "Script must exit non-zero (code 2 per the SKILL spec). Error message must mention --force as the override. Must NOT overwrite, must NOT touch the ledger. Invariant: c-code-repos.json's memorix entry last_scanned is unchanged.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "name": "ledger_duplicate_refuses",
+      "prompt": "解压 Code-zip 里的 another.7z，然后再跑一次同样的命令（第二次 ledger 已有记录）",
+      "expected_output": "First run succeeds, writes ledger. Second run exits with code 3 (not 2 — distinct from target-conflict), error message references 'ledger 已记录' and the extracted_at timestamp, and explicitly recommends --force. No new ledger entry written. No new files extracted.",
+      "files": []
+    },
+    {
+      "id": 6,
+      "name": "multi_top_level_aborts",
+      "prompt": "解压一个包含两个无关顶层目录（比如 src\\ 和 docs\\）的 .7z",
+      "expected_output": "Script must exit non-zero (code 2) with the '复杂归档：检测到多个顶层条目' error message from detect_project_name. No extraction, no ledger entry, no scan_inventory.py invocation. The error must be clear about which entries were detected (so the user can decide whether to manually extract).",
+      "files": []
+    },
+    {
+      "id": 7,
+      "name": "sevenzip_missing_aborts",
+      "prompt": "在没装 7-Zip 的机器上跑 install_archive.py memorix",
+      "expected_output": "Script must exit non-zero (code 2) with the '找不到 7-Zip CLI' message. No partial extraction, no broken ledger entry. Error should be actionable (mention the default install path).",
+      "files": []
+    },
+    {
+      "id": 8,
+      "name": "list_ledger",
+      "prompt": "列出 Code-zip/extracted.json 里目前记录的所有归档",
+      "expected_output": "Runs --list mode and prints a markdown-style table with archive / project_name / extracted_at / inventory_type / source_star columns. Empty ledger prints a friendly '(ledger 是空的)' hint. Exits 0 in both cases.",
+      "files": []
+    },
+    {
+      "id": 9,
+      "name": "force_re_extract",
+      "prompt": "memorix 已经被装过，但用户改了源码想从头来一遍：`python install_archive.py memorix --force`",
+      "expected_output": "With --force: prior ledger entry is removed and replaced with a new one (not appended as duplicate), target directory is wiped and re-extracted (note: 7z -y on an existing dir may merge files — acceptable for v1), scan_inventory.py runs again and updates last_full_scan timestamp in c-code-repos.json's _meta.",
+      "files": []
+    },
+    {
+      "id": 10,
+      "name": "no_sync_flag",
+      "prompt": "`python install_archive.py memorix --no-sync`：只想要解压 + ledger，不想被 inventory 链碰到",
+      "expected_output": "Archive extracts, ledger entry appended. scan_inventory.py is NEVER called. The ledger entry's synced=false and sync_results=null. c-code-repos.json's _meta.last_full_scan timestamp must NOT change.",
+      "files": []
+    }
+  ]
+}

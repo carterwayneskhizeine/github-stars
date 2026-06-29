@@ -3,9 +3,9 @@
     "description": "本地 Code 文件夹的仓库清单（单一数据源）",
     "root_path": "C:\\Users\\gotmo\\Code",
     "schema_version": 1,
-    "last_full_scan": "2026-06-29T21:02:13+08:00",
+    "last_full_scan": "2026-06-29T22:45:14+08:00",
     "gh_user": "carterwayneskhizeine",
-    "last_backfill_source_star": "2026-06-27T23:02:32+08:00"
+    "last_backfill_source_star": "2026-06-29T22:45:30+08:00"
   },
   "repos": [
     {
@@ -16,7 +16,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-06-29T21:02:03+08:00",
+      "last_scanned": "2026-06-29T22:45:02+08:00",
       "notes": null
     },
     {
@@ -27,7 +27,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-06-29T21:02:04+08:00",
+      "last_scanned": "2026-06-29T22:45:04+08:00",
       "notes": null
     },
     {
@@ -38,7 +38,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-06-29T21:02:06+08:00",
+      "last_scanned": "2026-06-29T22:45:05+08:00",
       "notes": null
     },
     {
@@ -49,7 +49,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-06-29T21:02:07+08:00",
+      "last_scanned": "2026-06-29T22:45:08+08:00",
       "notes": null
     },
     {
@@ -60,7 +60,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-06-29T21:02:09+08:00",
+      "last_scanned": "2026-06-29T22:45:09+08:00",
       "notes": null
     },
     {
@@ -71,7 +71,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-06-29T21:02:11+08:00",
+      "last_scanned": "2026-06-29T22:45:11+08:00",
       "notes": null
     },
     {
@@ -82,7 +82,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-06-29T21:02:12+08:00",
+      "last_scanned": "2026-06-29T22:45:13+08:00",
       "notes": null
     },
     {
@@ -92,8 +92,19 @@
       "upstream": null,
       "parent": null,
       "is_fork": false,
-      "source_star": null,
-      "last_scanned": "2026-06-29T21:02:07+08:00",
+      "source_star": "lavantien-dotfiles.md",
+      "last_scanned": "2026-06-29T22:45:08+08:00",
+      "notes": null
+    },
+    {
+      "name": "memorix",
+      "type": "upstream-clone",
+      "origin": "git@github.com:AVIDS2/memorix.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "AVIDS2-memorix.md",
+      "last_scanned": "2026-06-29T22:45:13+08:00",
       "notes": null
     },
     {
@@ -104,7 +115,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-06-29T21:02:06+08:00",
+      "last_scanned": "2026-06-29T22:45:05+08:00",
       "notes": null
     },
     {
@@ -115,7 +126,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-06-29T21:02:11+08:00",
+      "last_scanned": "2026-06-29T22:45:11+08:00",
       "notes": null
     }
   ]
