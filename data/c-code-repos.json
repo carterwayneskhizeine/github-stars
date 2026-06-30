@@ -3,11 +3,22 @@
     "description": "本地 Code 文件夹的仓库清单（单一数据源）",
     "root_path": "C:\\Users\\gotmo\\Code",
     "schema_version": 1,
-    "last_full_scan": "2026-06-30T17:33:54+08:00",
+    "last_full_scan": "2026-06-30T18:26:53+08:00",
     "gh_user": "carterwayneskhizeine",
     "last_backfill_source_star": "2026-06-30T17:34:37+08:00"
   },
   "repos": [
+    {
+      "name": "ai-os-dev",
+      "type": "original",
+      "origin": "https://github.com/carterwayneskhizeine/ai-os-dev.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-06-30T18:26:42+08:00",
+      "notes": null
+    },
     {
       "name": "ai-os-eve",
       "type": "original",
@@ -16,7 +27,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-06-30T02:24:40+08:00",
+      "last_scanned": "2026-06-30T18:26:44+08:00",
       "notes": null
     },
     {
@@ -27,7 +38,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-06-30T02:24:41+08:00",
+      "last_scanned": "2026-06-30T18:26:45+08:00",
       "notes": null
     },
     {
@@ -38,7 +49,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-06-30T02:24:42+08:00",
+      "last_scanned": "2026-06-30T18:26:46+08:00",
       "notes": null
     },
     {
@@ -49,7 +60,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-06-30T02:24:45+08:00",
+      "last_scanned": "2026-06-30T18:26:49+08:00",
       "notes": null
     },
     {
@@ -60,7 +71,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-06-30T02:24:46+08:00",
+      "last_scanned": "2026-06-30T18:26:50+08:00",
       "notes": null
     },
     {
@@ -71,7 +82,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-06-30T02:24:47+08:00",
+      "last_scanned": "2026-06-30T18:26:51+08:00",
       "notes": null
     },
     {
@@ -82,18 +93,18 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-06-30T02:24:48+08:00",
+      "last_scanned": "2026-06-30T18:26:52+08:00",
       "notes": null
     },
     {
       "name": "cua",
       "type": "fork",
       "origin": "https://github.com/carterwayneskhizeine/cua.git",
-      "upstream": null,
+      "upstream": "https://github.com/trycua/cua.git",
       "parent": "trycua/cua",
       "is_fork": true,
       "source_star": null,
-      "last_scanned": "2026-06-30T02:24:43+08:00",
+      "last_scanned": "2026-06-30T18:26:48+08:00",
       "notes": null
     },
     {
@@ -104,7 +115,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": "lavantien-dotfiles.md",
-      "last_scanned": "2026-06-30T02:24:45+08:00",
+      "last_scanned": "2026-06-30T18:26:49+08:00",
       "notes": null
     },
     {
@@ -115,7 +126,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": "AVIDS2-memorix.md",
-      "last_scanned": "2026-06-30T02:24:48+08:00",
+      "last_scanned": "2026-06-30T18:26:52+08:00",
       "notes": null
     },
     {
@@ -126,7 +137,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": "HKUDS-nanobot.md",
-      "last_scanned": "2026-06-30T17:33:54+08:00",
+      "last_scanned": "2026-06-30T18:26:52+08:00",
       "notes": null
     },
     {
@@ -137,7 +148,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-06-30T14:05:10+08:00",
+      "last_scanned": "2026-06-30T18:26:52+08:00",
       "notes": null
     },
     {
@@ -148,7 +159,18 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-06-30T02:24:42+08:00",
+      "last_scanned": "2026-06-30T18:26:46+08:00",
+      "notes": null
+    },
+    {
+      "name": "goldie-fork",
+      "type": "non-git",
+      "origin": null,
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-06-30T18:26:51+08:00",
       "notes": null
     },
     {
@@ -159,7 +181,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-06-30T02:24:47+08:00",
+      "last_scanned": "2026-06-30T18:26:51+08:00",
       "notes": null
     }
   ]

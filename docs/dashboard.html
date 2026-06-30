@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Code 文件夹仪表盘</title>
+<style>
+  :root {
+    --bg: #f8fafc;     /* page bg */
+    --bg-2: #ffffff;   /* card / header / toolbar bg */
+    --bg-3: #f1f5f9;   /* inline <code> bg */
+    --fg: #0f172a;     /* primary text */
+    --fg-2: #64748b;   /* muted text */
+    --accent: #2563eb; /* links / hover */
+    --border: #e2e8f0;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg); color: var(--fg);
+    font: 14px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI",
+          "PingFang SC", "Microsoft YaHei", sans-serif;
+  }
+  header {
+    padding: 20px 28px;
+    background: var(--bg-2); border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; z-index: 10;
+  }
+  h1 { margin: 0 0 4px; font-size: 20px; }
+  header .meta { color: var(--fg-2); font-size: 12px; }
+  code { background: var(--bg-3); padding: 1px 6px; border-radius: 4px; }
+  .toolbar {
+    display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+    padding: 14px 28px;
+    background: var(--bg-2); border-bottom: 1px solid var(--border);
+  }
+  .toolbar input[type=search] {
+    flex: 1; min-width: 200px;
+    background: var(--bg); color: var(--fg);
+    border: 1px solid var(--border); border-radius: 6px;
+    padding: 7px 11px; font-size: 14px;
+  }
+  .toolbar input[type=search]:focus { outline: none; border-color: var(--accent); }
+  .filter-group { display: flex; gap: 6px; flex-wrap: wrap; }
+  .filter-group label {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 5px 10px;
+    border: 1px solid var(--border); border-radius: 6px;
+    cursor: pointer; user-select: none; font-size: 13px;
+    transition: opacity .12s;
+  }
+  .filter-group label.off { opacity: 0.35; }
+  .filter-group label .dot {
+    width: 10px; height: 10px; border-radius: 50%; display: inline-block;
+  }
+  .toolbar select {
+    background: var(--bg); color: var(--fg);
+    border: 1px solid var(--border); border-radius: 6px;
+    padding: 6px 10px; font-size: 13px;
+  }
+  .toolbar .count {
+    margin-left: auto; color: var(--fg-2); font-size: 13px;
+    font-variant-numeric: tabular-nums;
+  }
+  main { padding: 22px 28px; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 14px;
+  }
+  .card {
+    background: var(--bg-2);
+    border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+    transition: transform .1s, border-color .1s, box-shadow .1s;
+  }
+  .card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+  }
+  .card h3 {
+    margin: 0 0 6px; font-size: 16px;
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  }
+  .card h3 a {
+    color: var(--fg); text-decoration: none; font-weight: 600;
+    word-break: break-all;
+  }
+  .card h3 a:hover { color: var(--accent); }
+  .badge {
+    display: inline-block;
+    padding: 2px 9px; border-radius: 12px;
+    font-size: 11px; font-weight: 600; color: white;
+    flex-shrink: 0;
+  }
+  .card .links {
+    font-size: 12px; color: var(--fg-2); margin-top: 4px;
+    word-break: break-all;
+  }
+  .card .links a {
+    color: var(--accent); text-decoration: none;
+  }
+  .card .links a:hover { text-decoration: underline; }
+  .card .links div { margin-top: 3px; }
+  .card .footer {
+    margin-top: 10px; padding-top: 8px;
+    border-top: 1px solid var(--border);
+    font-size: 11px; color: var(--fg-2);
+    display: flex; justify-content: space-between; gap: 8px;
+  }
+  .empty {
+    text-align: center; padding: 80px 20px;
+    color: var(--fg-2);
+  }
+  footer {
+    padding: 24px 28px;
+    color: var(--fg-2); font-size: 12px; text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📁 Code 文件夹仪表盘</h1>
+  <div class="meta" id="meta">加载中…</div>
+</header>
+
+<div class="toolbar">
+  <input type="search" id="search" placeholder="搜索仓库名…" autocomplete="off">
+  <div class="filter-group" id="filters"></div>
+  <select id="sort">
+    <option value="name">按名称</option>
+    <option value="type">按类型</option>
+    <option value="last_scanned">按最近扫描</option>
+  </select>
+  <div class="count" id="count">—</div>
+</div>
+
+<main>
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty" style="display:none">没有匹配的仓库</div>
+</main>
+
+<footer>
+  数据源: <code>data/c-code-repos.json</code> · 生成于 <span id="built"></span>
+</footer>
+
+<script id="dashboard-data" type="application/json">{"_meta": {"description": "本地 Code 文件夹的仓库清单（单一数据源）", "root_path": "C:\\Users\\gotmo\\Code", "schema_version": 1, "last_full_scan": "2026-06-30T18:26:53+08:00", "gh_user": "carterwayneskhizeine", "last_backfill_source_star": "2026-06-30T17:34:37+08:00"}, "repos": [{"name": "ai-os-dev", "type": "original", "origin": "https://github.com/carterwayneskhizeine/ai-os-dev.git", "upstream": null, "parent": null, "is_fork": false, "source_star": null, "last_scanned": "2026-06-30T18:26:42+08:00", "notes": null, "origin_web": "https://github.com/carterwayneskhizeine/ai-os-dev", "upstream_web": null, "parent_web": null, "source_star_url": null}, {"name": "ai-os-eve", "type": "original", "origin": "https://github.com/carterwayneskhizeine/ai-os-eve.git", "upstream": null, "parent": null, "is_fork": false, "source_star": null, "last_scanned": "2026-06-30T18:26:44+08:00", "notes": null, "origin_web": "https://github.com/carterwayneskhizeine/ai-os-eve", "upstream_web": null, "parent_web": null, "source_star_url": null}, {"name": "bazi", "type": "original", "origin": "https://github.com/carterwayneskhizeine/bazi", "upstream": null, "parent": null, "is_fork": false, "source_star": null, "last_scanned": "2026-06-30T18:26:45+08:00", "notes": null, "origin_web": "https://github.com/carterwayneskhizeine/bazi", "upstream_web": null, "parent_web": null, "source_star_url": null}, {"name": "CrazyTypewriter", "type": "original", "origin": "https://github.com/carterwayneskhizeine/CrazyTypewriter.git", "upstream": null, "parent": null, "is_fork": false, "source_star": null, "last_scanned": "2026-06-30T18:26:46+08:00", "notes": null, "origin_web": "https://github.com/carterwayneskhizeine/CrazyTypewriter", "upstream_web": null, "parent_web": null, "source_star_url": null}, {"name": "fde-internal-technical-design", "type": "original", "origin": "https://github.com/carterwayneskhizeine/fde-internal-technical-design.git", "upstream": null, "parent": null, "is_fork": false, "source_star": null, "last_scanned": "2026-06-30T18:26:49+08:00", "notes": null, "origin_web": "https://github.com/carterwayneskhizeine/fde-internal-technical-design", "upstream_web": null, "parent_web": null, "source_star_url": null}, {"name": "github-stars", "type": "original", "origin": "git@github.com:carterwayneskhizeine/github-stars.git", "upstream": null, "parent": null, "is_fork": false, "source_star": null, "last_scanned": "2026-06-30T18:26:50+08:00", "notes": null, "origin_web": "https://github.com/carterwayneskhizeine/github-stars", "upstream_web": null, "parent_web": null, "source_star_url": null}, {"name": "LiteLLM_VPS", "type": "original", "origin": "https://github.com/carterwayneskhizeine/LiteLLM_VPS.git", "upstream": null, "parent": null, "is_fork": false, "source_star": null, "last_scanned": "2026-06-30T18:26:51+08:00", "notes": null, "origin_web": "https://github.com/carterwayneskhizeine/LiteLLM_VPS", "upstream_web": null, "parent_web": null, "source_star_url": null}, {"name": "whitenote", "type": "original", "origin": "https://github.com/carterwayneskhizeine/whitenote.git", "upstream": null, "parent": null, "is_fork": false, "source_star": null, "last_scanned": "2026-06-30T18:26:52+08:00", "notes": null, "origin_web": "https://github.com/carterwayneskhizeine/whitenote", "upstream_web": null, "parent_web": null, "source_star_url": null}, {"name": "cua", "type": "fork", "origin": "https://github.com/carterwayneskhizeine/cua.git", "upstream": "https://github.com/trycua/cua.git", "parent": "trycua/cua", "is_fork": true, "source_star": null, "last_scanned": "2026-06-30T18:26:48+08:00", "notes": null, "origin_web": "https://github.com/carterwayneskhizeine/cua", "upstream_web": "https://github.com/trycua/cua", "parent_web": "trycua/cua", "source_star_url": null}, {"name": "dotfiles", "type": "upstream-clone", "origin": "https://github.com/lavantien/dotfiles.git", "upstream": null, "parent": null, "is_fork": false, "source_star": "lavantien-dotfiles.md", "last_scanned": "2026-06-30T18:26:49+08:00", "notes": null, "origin_web": "https://github.com/lavantien/dotfiles", "upstream_web": null, "parent_web": null, "source_star_url": "https://github.com/lavantien/dotfiles"}, {"name": "memorix", "type": "upstream-clone", "origin": "git@github.com:AVIDS2/memorix.git", "upstream": null, "parent": null, "is_fork": false, "source_star": "AVIDS2-memorix.md", "last_scanned": "2026-06-30T18:26:52+08:00", "notes": null, "origin_web": "https://github.com/AVIDS2/memorix", "upstream_web": null, "parent_web": null, "source_star_url": "https://github.com/AVIDS2/memorix"}, {"name": "nanobot", "type": "upstream-clone", "origin": "git@github.com:HKUDS/nanobot.git", "upstream": null, "parent": null, "is_fork": false, "source_star": "HKUDS-nanobot.md", "last_scanned": "2026-06-30T18:26:52+08:00", "notes": null, "origin_web": "https://github.com/HKUDS/nanobot", "upstream_web": null, "parent_web": null, "source_star_url": "https://github.com/HKUDS/nanobot"}, {"name": "RAG-Knowledge-Base", "type": "upstream-clone", "origin": "git@github.com:WangLin0/RAG-Knowledge-Base.git", "upstream": null, "parent": null, "is_fork": false, "source_star": null, "last_scanned": "2026-06-30T18:26:52+08:00", "notes": null, "origin_web": "https://github.com/WangLin0/RAG-Knowledge-Base", "upstream_web": null, "parent_web": null, "source_star_url": null}, {"name": "Code-zip", "type": "non-git", "origin": null, "upstream": null, "parent": null, "is_fork": false, "source_star": null, "last_scanned": "2026-06-30T18:26:46+08:00", "notes": null, "origin_web": null, "upstream_web": null, "parent_web": null, "source_star_url": null}, {"name": "goldie-fork", "type": "non-git", "origin": null, "upstream": null, "parent": null, "is_fork": false, "source_star": null, "last_scanned": "2026-06-30T18:26:51+08:00", "notes": null, "origin_web": null, "upstream_web": null, "parent_web": null, "source_star_url": null}, {"name": "langchain_learning", "type": "non-git", "origin": null, "upstream": null, "parent": null, "is_fork": false, "source_star": null, "last_scanned": "2026-06-30T18:26:51+08:00", "notes": null, "origin_web": null, "upstream_web": null, "parent_web": null, "source_star_url": null}], "_built": "2026-06-30T20:56:44"}</script>
+<script>
+(function(){
+  const DATA = JSON.parse(document.getElementById('dashboard-data').textContent);
+  const TYPE_META = {"original": {"label": "原创", "color": "#22c55e", "desc": "你自己 GitHub 名下的仓库"}, "fork": {"label": "Fork", "color": "#a855f7", "desc": "你 fork 的别人的仓库"}, "upstream-clone": {"label": "上游克隆", "color": "#f97316", "desc": "直接 clone 的第三方仓库"}, "non-git": {"label": "非 Git", "color": "#64748b", "desc": "纯文件夹，没有 git"}};
+
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[c]));
+  const link = (url, label) =>
+    `<a href="${esc(url)}" target="_blank" rel="noopener">${esc(label)}</a>`;
+
+  // 类型分布
+  const byType = {};
+  DATA.repos.forEach(r => { byType[r.type] = (byType[r.type]||0) + 1; });
+  const dist = Object.keys(TYPE_META)
+    .map(k => `${TYPE_META[k].label} ${byType[k]||0}`)
+    .join(' · ');
+
+  // header meta
+  document.getElementById('meta').innerHTML =
+    `根目录 <code>${esc(DATA._meta.root_path)}</code> · ` +
+    `上次扫描 ${esc(DATA._meta.last_full_scan)} · 共 ${DATA.repos.length} 个 (${esc(dist)})`;
+
+  // filter chips
+  const filtersEl = document.getElementById('filters');
+  const enabled = new Set(Object.keys(TYPE_META));
+  Object.entries(TYPE_META).forEach(([k, v]) => {
+    const lab = document.createElement('label');
+    lab.dataset.type = k;
+    lab.title = v.desc;
+    lab.innerHTML = `<span class="dot" style="background:${v.color}"></span>${esc(v.label)}`;
+    lab.addEventListener('click', () => {
+      if (enabled.has(k)) { enabled.delete(k); lab.classList.add('off'); }
+      else                { enabled.add(k);    lab.classList.remove('off'); }
+      render();
+    });
+    filtersEl.appendChild(lab);
+  });
+
+  document.getElementById('sort').addEventListener('change', render);
+  let q = '';
+  document.getElementById('search').addEventListener('input', e => {
+    q = e.target.value.trim().toLowerCase();
+    render();
+  });
+
+  function render() {
+    const sort = document.getElementById('sort').value;
+    const list = DATA.repos.filter(r => {
+      if (!enabled.has(r.type)) return false;
+      if (q && !r.name.toLowerCase().includes(q)) return false;
+      return true;
+    });
+
+    if (sort === 'name')
+      list.sort((a,b) => a.name.localeCompare(b.name));
+    else if (sort === 'type')
+      list.sort((a,b) => (a.type+a.name).localeCompare(b.type+b.name));
+    else if (sort === 'last_scanned')
+      list.sort((a,b) => (b.last_scanned||'').localeCompare(a.last_scanned||''));
+
+    const grid = document.getElementById('grid');
+    const empty = document.getElementById('empty');
+    document.getElementById('count').textContent = `${list.length} / ${DATA.repos.length}`;
+    if (list.length === 0) { grid.innerHTML = ''; empty.style.display = 'block'; return; }
+    empty.style.display = 'none';
+
+    grid.innerHTML = list.map(r => {
+      const meta = TYPE_META[r.type] || {label: r.type, color: '#64748b'};
+      const parts = [];
+      if (r.origin_web)  parts.push(`<div>origin: ${link(r.origin_web, r.origin_web)}</div>`);
+      else if (r.origin) parts.push(`<div>origin: ${esc(r.origin)}</div>`);
+      if (r.upstream_web) parts.push(`<div>upstream: ${link(r.upstream_web, r.upstream_web)}</div>`);
+      if (r.parent_web)   parts.push(`<div>parent: ${link(r.parent_web, r.parent_web)}</div>`);
+      if (r.source_star_url)
+        parts.push(`<div>★ starred: ${link(r.source_star_url, r.source_star_url)}</div>`);
+      else if (r.source_star)
+        parts.push(`<div>★ starred: ${esc(r.source_star)}</div>`);
+      if (r.notes) parts.push(`<div>📝 ${esc(r.notes)}</div>`);
+
+      return `
+        <div class="card">
+          <h3>
+            <span class="badge" style="background:${meta.color}">${esc(meta.label)}</span>
+            ${link(r.origin || '#', r.name)}
+          </h3>
+          <div class="links">${parts.join('')}</div>
+          <div class="footer">
+            <span>${esc(r.name)}</span>
+            <span>${esc((r.last_scanned||'').slice(0,19))}</span>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  document.getElementById('built').textContent = "2026-06-30T20:56:44";
+  render();
+})();
+</script>
+
+</body>
+</html>
