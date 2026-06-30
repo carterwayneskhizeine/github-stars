@@ -3,9 +3,9 @@
     "description": "本地 Code 文件夹的仓库清单（单一数据源）",
     "root_path": "C:\\Users\\gotmo\\Code",
     "schema_version": 1,
-    "last_full_scan": "2026-06-29T22:45:14+08:00",
+    "last_full_scan": "2026-06-30T17:33:54+08:00",
     "gh_user": "carterwayneskhizeine",
-    "last_backfill_source_star": "2026-06-29T22:45:30+08:00"
+    "last_backfill_source_star": "2026-06-30T17:34:37+08:00"
   },
   "repos": [
     {
@@ -16,7 +16,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-06-29T22:45:02+08:00",
+      "last_scanned": "2026-06-30T02:24:40+08:00",
       "notes": null
     },
     {
@@ -27,7 +27,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-06-29T22:45:04+08:00",
+      "last_scanned": "2026-06-30T02:24:41+08:00",
       "notes": null
     },
     {
@@ -38,7 +38,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-06-29T22:45:05+08:00",
+      "last_scanned": "2026-06-30T02:24:42+08:00",
       "notes": null
     },
     {
@@ -49,7 +49,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-06-29T22:45:08+08:00",
+      "last_scanned": "2026-06-30T02:24:45+08:00",
       "notes": null
     },
     {
@@ -60,7 +60,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-06-29T22:45:09+08:00",
+      "last_scanned": "2026-06-30T02:24:46+08:00",
       "notes": null
     },
     {
@@ -71,7 +71,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-06-29T22:45:11+08:00",
+      "last_scanned": "2026-06-30T02:24:47+08:00",
       "notes": null
     },
     {
@@ -82,7 +82,18 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-06-29T22:45:13+08:00",
+      "last_scanned": "2026-06-30T02:24:48+08:00",
+      "notes": null
+    },
+    {
+      "name": "cua",
+      "type": "fork",
+      "origin": "https://github.com/carterwayneskhizeine/cua.git",
+      "upstream": null,
+      "parent": "trycua/cua",
+      "is_fork": true,
+      "source_star": null,
+      "last_scanned": "2026-06-30T02:24:43+08:00",
       "notes": null
     },
     {
@@ -93,7 +104,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": "lavantien-dotfiles.md",
-      "last_scanned": "2026-06-29T22:45:08+08:00",
+      "last_scanned": "2026-06-30T02:24:45+08:00",
       "notes": null
     },
     {
@@ -104,7 +115,29 @@
       "parent": null,
       "is_fork": false,
       "source_star": "AVIDS2-memorix.md",
-      "last_scanned": "2026-06-29T22:45:13+08:00",
+      "last_scanned": "2026-06-30T02:24:48+08:00",
+      "notes": null
+    },
+    {
+      "name": "nanobot",
+      "type": "upstream-clone",
+      "origin": "git@github.com:HKUDS/nanobot.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "HKUDS-nanobot.md",
+      "last_scanned": "2026-06-30T17:33:54+08:00",
+      "notes": null
+    },
+    {
+      "name": "RAG-Knowledge-Base",
+      "type": "upstream-clone",
+      "origin": "git@github.com:WangLin0/RAG-Knowledge-Base.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-06-30T14:05:10+08:00",
       "notes": null
     },
     {
@@ -115,7 +148,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-06-29T22:45:05+08:00",
+      "last_scanned": "2026-06-30T02:24:42+08:00",
       "notes": null
     },
     {
@@ -126,7 +159,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-06-29T22:45:11+08:00",
+      "last_scanned": "2026-06-30T02:24:47+08:00",
       "notes": null
     }
   ]
