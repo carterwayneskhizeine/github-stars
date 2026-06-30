@@ -24,7 +24,10 @@ C:\Users\gotmo\Code\github-stars\
 │       ├── references/      ← json-schema.md
 │       └── evals/           ← 测试用例
 ├── docs/
-│   └── C-Code-Repos.md      ← data/c-code-repos.json 的使用说明书
+│   ├── C-Code-Repos.md      ← data/c-code-repos.json 的使用说明书
+│   └── dashboard.html       ← 仓库清单的可视化仪表盘（生成产物）
+├── scripts/
+│   └── build_dashboard.py   ← 把 c-code-repos.json 渲染成 dashboard.html
 └── stars-readme/            ← 所有下载下来的 README 都放这里
     ├── Helvesec-rmux.md
     ├── langchain-ai-langgraph.md
@@ -213,6 +216,51 @@ python .agents/skills/c-code/scripts/clone_repo.py --list-new
 JSON schema 见 [`.agents/skills/c-code/references/json-schema.md`](.agents/skills/c-code/references/json-schema.md)；
 测试用例见 [`.agents/skills/c-code/evals/evals.json`](.agents/skills/c-code/evals/evals.json)。
 
+## 仪表盘 (Dashboard)
+
+仓库清单 `data/c-code-repos.json` 可以渲染成静态网页，方便一眼扫过
+`Code` 文件夹里所有项目、按类型筛选、点 origin 直接跳 GitHub。
+
+### 生成 / 刷新
+
+```bash
+python scripts/build_dashboard.py
+```
+
+产物 `docs/dashboard.html` 是一个**单文件** HTML（数据嵌进 `<script>`、
+纯 HTML/CSS/JS，零外部依赖），双击就能在浏览器打开，也能直接放上
+GitHub Pages 分享。
+
+### 功能
+
+| 区域 | 做什么 |
+| --- | --- |
+| 搜索框 | 按仓库名模糊匹配（实时过滤） |
+| 类型筛选 | 多选：原创 / Fork / 上游克隆 / 非 Git |
+| 排序 | 按名称 / 按类型 / 按最近扫描时间 |
+| 卡片 | 显示类型徽章、origin、upstream、parent、source_star 链接；origin / upstream / parent 自动从 SSH 形式（`git@github.com:o/r.git`）或带 `.git` 后缀规范成可点击的 `https://github.com/o/r` |
+| 元数据 | header 显根目录、上次扫描时间、类型分布；footer 显生成时间 |
+
+### 部署到 GitHub Pages
+
+把 `docs/` 作为 Pages source 即可（仓库 **Settings → Pages → Branch:
+`main` / Folder: `/docs`**）。启用后访问：
+
+```
+https://carterwayneskhizeine.github.io/github-stars/dashboard.html
+```
+
+`data/c-code-repos.json` 更新后记得重新生成并推送：
+
+```bash
+python scripts/build_dashboard.py
+git add docs/dashboard.html
+git commit -m "chore: refresh dashboard"
+git push
+```
+
+---
+
 ## 重新部署到另一台机器
 
 把这整个文件夹（包括 `stars-readme/`、`data/stars_mapping.json`、
@@ -225,6 +273,9 @@ python download_stars.py --all               # 增量下完剩下的
 
 # 验证 c-code 清单
 python .agents/skills/c-code/scripts/scan_inventory.py
+
+# 重建 dashboard.html
+python scripts/build_dashboard.py
 ```
 
 ## 许可

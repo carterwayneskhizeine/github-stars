@@ -365,6 +365,25 @@ for d in */; do
 done
 ```
 
+## 可视化：dashboard.html
+
+数据本身是 JSON，命令行查起来不直观。仓库里有一个
+`docs/dashboard.html`，把当前 JSON 渲染成网页（按类型筛选、按名称搜、
+排序、点 origin 直跳 GitHub）。打开方式：
+
+```bash
+start docs/dashboard.html              # Windows
+# 或者直接双击 docs/dashboard.html
+```
+
+数据更新后重新生成：
+
+```bash
+python scripts/build_dashboard.py
+```
+
+部署到 GitHub Pages 见主 `README.md` 的「仪表盘」章节。
+
 ## 许可
 
 本文档与 `data/c-code-repos.json` 均按 MIT 发布（与项目主 `LICENSE` 一致）。
