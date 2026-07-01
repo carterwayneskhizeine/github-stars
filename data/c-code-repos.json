@@ -3,9 +3,9 @@
     "description": "本地 Code 文件夹的仓库清单（单一数据源）",
     "root_path": "C:\\Users\\gotmo\\Code",
     "schema_version": 1,
-    "last_full_scan": "2026-06-30T18:26:53+08:00",
+    "last_full_scan": "2026-07-01T17:18:57+08:00",
     "gh_user": "carterwayneskhizeine",
-    "last_backfill_source_star": "2026-06-30T17:34:37+08:00"
+    "last_backfill_source_star": "2026-07-01T16:17:57+08:00"
   },
   "repos": [
     {
@@ -16,8 +16,8 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-06-30T18:26:42+08:00",
-      "notes": null
+      "last_scanned": "2026-07-01T17:18:19+08:00",
+      "notes": "gh api 失败，按 original 记录；如确认是 fork 请手动改 type"
     },
     {
       "name": "ai-os-eve",
@@ -27,8 +27,8 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-06-30T18:26:44+08:00",
-      "notes": null
+      "last_scanned": "2026-07-01T17:18:20+08:00",
+      "notes": "gh api 失败，按 original 记录；如确认是 fork 请手动改 type"
     },
     {
       "name": "bazi",
@@ -38,7 +38,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-06-30T18:26:45+08:00",
+      "last_scanned": "2026-07-01T17:18:23+08:00",
       "notes": null
     },
     {
@@ -49,8 +49,8 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-06-30T18:26:46+08:00",
-      "notes": null
+      "last_scanned": "2026-07-01T17:18:25+08:00",
+      "notes": "gh api 失败，按 original 记录；如确认是 fork 请手动改 type"
     },
     {
       "name": "fde-internal-technical-design",
@@ -60,7 +60,18 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-06-30T18:26:49+08:00",
+      "last_scanned": "2026-07-01T17:18:28+08:00",
+      "notes": "gh api 失败，按 original 记录；如确认是 fork 请手动改 type"
+    },
+    {
+      "name": "folder-location",
+      "type": "original",
+      "origin": "git@github.com:carterwayneskhizeine/folder-location.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-07-01T17:18:30+08:00",
       "notes": null
     },
     {
@@ -71,8 +82,41 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-06-30T18:26:50+08:00",
+      "last_scanned": "2026-07-01T17:18:31+08:00",
+      "notes": "gh api 失败，按 original 记录；如确认是 fork 请手动改 type"
+    },
+    {
+      "name": "GoldieRillChat",
+      "type": "original",
+      "origin": "https://github.com/carterwayneskhizeine/GoldieRillChat.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-07-01T17:18:33+08:00",
       "notes": null
+    },
+    {
+      "name": "hermes-agent-windows-R",
+      "type": "original",
+      "origin": "https://github.com/carterwayneskhizeine/hermes-agent-windows-R.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-07-01T17:18:35+08:00",
+      "notes": null
+    },
+    {
+      "name": "HyperBoard",
+      "type": "original",
+      "origin": "https://github.com/carterwayneskhizeine/HyperBoard.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-07-01T17:18:38+08:00",
+      "notes": "gh api 失败，按 original 记录；如确认是 fork 请手动改 type"
     },
     {
       "name": "LiteLLM_VPS",
@@ -82,8 +126,30 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-06-30T18:26:51+08:00",
+      "last_scanned": "2026-07-01T17:18:39+08:00",
+      "notes": "gh api 失败，按 original 记录；如确认是 fork 请手动改 type"
+    },
+    {
+      "name": "LiteLLMyamlDashboard",
+      "type": "original",
+      "origin": "https://github.com/carterwayneskhizeine/LiteLLMyamlDashboard.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-07-01T17:18:40+08:00",
       "notes": null
+    },
+    {
+      "name": "nexusweave",
+      "type": "original",
+      "origin": "https://github.com/carterwayneskhizeine/nexusweave.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-07-01T17:18:44+08:00",
+      "notes": "gh api 失败，按 original 记录；如确认是 fork 请手动改 type"
     },
     {
       "name": "whitenote",
@@ -93,8 +159,30 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-06-30T18:26:52+08:00",
+      "last_scanned": "2026-07-01T17:18:52+08:00",
+      "notes": "gh api 失败，按 original 记录；如确认是 fork 请手动改 type"
+    },
+    {
+      "name": "y1",
+      "type": "original",
+      "origin": "git@github.com:carterwayneskhizeine/y1.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-07-01T17:18:54+08:00",
       "notes": null
+    },
+    {
+      "name": "atlasclaw",
+      "type": "fork",
+      "origin": "git@github.com:carterwayneskhizeine/atlasclaw.git",
+      "upstream": "git@github.com:CloudChef/atlasclaw.git",
+      "parent": "CloudChef/atlasclaw",
+      "is_fork": true,
+      "source_star": null,
+      "last_scanned": "2026-07-01T17:18:22+08:00",
+      "notes": "gh api 失败（私有/已删），靠 upstream remote 判定为 fork"
     },
     {
       "name": "cua",
@@ -104,7 +192,205 @@
       "parent": "trycua/cua",
       "is_fork": true,
       "source_star": null,
-      "last_scanned": "2026-06-30T18:26:48+08:00",
+      "last_scanned": "2026-07-01T17:18:26+08:00",
+      "notes": "gh api 失败（私有/已删），靠 upstream remote 判定为 fork"
+    },
+    {
+      "name": "hermes-web-ui",
+      "type": "fork",
+      "origin": "git@github.com:carterwayneskhizeine/hermes-web-ui.git",
+      "upstream": "git@github.com:EKKOLearnAI/hermes-web-ui.git",
+      "parent": "EKKOLearnAI/hermes-studio",
+      "is_fork": true,
+      "source_star": null,
+      "last_scanned": "2026-07-01T17:18:36+08:00",
+      "notes": "gh api 失败（私有/已删），靠 upstream remote 判定为 fork"
+    },
+    {
+      "name": "MultiAgenticRAG",
+      "type": "fork",
+      "origin": "git@github.com:carterwayneskhizeine/MultiAgenticRAG.git",
+      "upstream": "git@github.com:nicoladisabato/MultiAgenticRAG.git",
+      "parent": "nicoladisabato/MultiAgenticRAG",
+      "is_fork": true,
+      "source_star": null,
+      "last_scanned": "2026-07-01T17:18:42+08:00",
+      "notes": "gh api 失败（私有/已删），靠 upstream remote 判定为 fork"
+    },
+    {
+      "name": "oh-my-hermes",
+      "type": "fork",
+      "origin": "https://github.com/carterwayneskhizeine/oh-my-hermes.git",
+      "upstream": null,
+      "parent": "Salomondiei08/oh-my-hermes",
+      "is_fork": true,
+      "source_star": null,
+      "last_scanned": "2026-07-01T17:18:45+08:00",
+      "notes": null
+    },
+    {
+      "name": "SkillOpt",
+      "type": "fork",
+      "origin": "git@github.com:carterwayneskhizeine/SkillOpt.git",
+      "upstream": "git@github.com:microsoft/SkillOpt.git",
+      "parent": "microsoft/SkillOpt",
+      "is_fork": true,
+      "source_star": null,
+      "last_scanned": "2026-07-01T17:18:48+08:00",
+      "notes": "gh api 失败（私有/已删），靠 upstream remote 判定为 fork"
+    },
+    {
+      "name": "stokowski",
+      "type": "fork",
+      "origin": "https://github.com/carterwayneskhizeine/stokowski.git",
+      "upstream": "https://github.com/Sugar-Coffee/stokowski.git",
+      "parent": "Sugar-Coffee/stokowski",
+      "is_fork": true,
+      "source_star": null,
+      "last_scanned": "2026-07-01T17:18:50+08:00",
+      "notes": "gh api 失败（私有/已删），靠 upstream remote 判定为 fork"
+    },
+    {
+      "name": "ziwei",
+      "type": "fork",
+      "origin": "https://github.com/carterwayneskhizeine/ziwei.git",
+      "upstream": null,
+      "parent": "ruijayfeng/ziwei",
+      "is_fork": true,
+      "source_star": null,
+      "last_scanned": "2026-07-01T17:18:56+08:00",
+      "notes": null
+    },
+    {
+      "name": "12-factor-agents",
+      "type": "upstream-clone",
+      "origin": "https://github.com/humanlayer/12-factor-agents",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "humanlayer-12-factor-agents.md",
+      "last_scanned": "2026-07-01T17:18:19+08:00",
+      "notes": null
+    },
+    {
+      "name": "a2ui",
+      "type": "upstream-clone",
+      "origin": "git@github.com:a2ui-project/a2ui.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "a2ui-project-a2ui.md",
+      "last_scanned": "2026-07-01T17:18:19+08:00",
+      "notes": null
+    },
+    {
+      "name": "addyosmani-agent-skills",
+      "type": "upstream-clone",
+      "origin": "git@github.com:addyosmani/agent-skills.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "addyosmani-agent-skills.md",
+      "last_scanned": "2026-07-01T17:18:19+08:00",
+      "notes": null
+    },
+    {
+      "name": "aichat",
+      "type": "upstream-clone",
+      "origin": "git@github.com:sigoden/aichat.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "sigoden-aichat.md",
+      "last_scanned": "2026-07-01T17:18:21+08:00",
+      "notes": null
+    },
+    {
+      "name": "aicommits",
+      "type": "upstream-clone",
+      "origin": "git@github.com:Nutlope/aicommits.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "Nutlope-aicommits.md",
+      "last_scanned": "2026-07-01T17:18:22+08:00",
+      "notes": null
+    },
+    {
+      "name": "anthropics-skills",
+      "type": "upstream-clone",
+      "origin": "git@github.com:anthropics/skills.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "anthropics-skills.md",
+      "last_scanned": "2026-07-01T17:18:22+08:00",
+      "notes": null
+    },
+    {
+      "name": "awesome-claude-skills",
+      "type": "upstream-clone",
+      "origin": "git@github.com:ComposioHQ/awesome-claude-skills.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "ComposioHQ-awesome-claude-skills.md",
+      "last_scanned": "2026-07-01T17:18:23+08:00",
+      "notes": null
+    },
+    {
+      "name": "Browser-BC",
+      "type": "upstream-clone",
+      "origin": "git@github.com:Einsia/Browser-BC.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "Einsia-Browser-BC.md",
+      "last_scanned": "2026-07-01T17:18:24+08:00",
+      "notes": null
+    },
+    {
+      "name": "chatbox",
+      "type": "upstream-clone",
+      "origin": "git@github.com:chatboxai/chatbox.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "chatboxai-chatbox.md",
+      "last_scanned": "2026-07-01T17:18:24+08:00",
+      "notes": null
+    },
+    {
+      "name": "cherry-studio",
+      "type": "upstream-clone",
+      "origin": "https://github.com/CherryHQ/cherry-studio.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "CherryHQ-cherry-studio.md",
+      "last_scanned": "2026-07-01T17:18:24+08:00",
+      "notes": null
+    },
+    {
+      "name": "claude-mem",
+      "type": "upstream-clone",
+      "origin": "git@github.com:thedotmack/claude-mem.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "thedotmack-claude-mem.md",
+      "last_scanned": "2026-07-01T17:18:25+08:00",
+      "notes": null
+    },
+    {
+      "name": "doris",
+      "type": "upstream-clone",
+      "origin": "git@github.com:apache/doris.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "apache-doris.md",
+      "last_scanned": "2026-07-01T17:18:28+08:00",
       "notes": null
     },
     {
@@ -115,7 +401,150 @@
       "parent": null,
       "is_fork": false,
       "source_star": "lavantien-dotfiles.md",
-      "last_scanned": "2026-06-30T18:26:49+08:00",
+      "last_scanned": "2026-07-01T17:18:28+08:00",
+      "notes": null
+    },
+    {
+      "name": "eve",
+      "type": "upstream-clone",
+      "origin": "git@github.com:vercel/eve.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "vercel-eve.md",
+      "last_scanned": "2026-07-01T17:18:28+08:00",
+      "notes": null
+    },
+    {
+      "name": "fireworks-skill-memory",
+      "type": "upstream-clone",
+      "origin": "git@github.com:yizhiyanhua-ai/fireworks-skill-memory.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "yizhiyanhua-ai-fireworks-skill-memory.md",
+      "last_scanned": "2026-07-01T17:18:30+08:00",
+      "notes": null
+    },
+    {
+      "name": "github-skill-forge",
+      "type": "upstream-clone",
+      "origin": "git@github.com:YuJunZhiXue/github-skill-forge.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "YuJunZhiXue-github-skill-forge.md",
+      "last_scanned": "2026-07-01T17:18:31+08:00",
+      "notes": null
+    },
+    {
+      "name": "google-gemini-gemini-skills",
+      "type": "upstream-clone",
+      "origin": "git@github.com:google-gemini/gemini-skills.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "google-gemini-gemini-skills.md",
+      "last_scanned": "2026-07-01T17:18:35+08:00",
+      "notes": null
+    },
+    {
+      "name": "google-skills",
+      "type": "upstream-clone",
+      "origin": "git@github.com:google/skills.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "google-skills.md",
+      "last_scanned": "2026-07-01T17:18:35+08:00",
+      "notes": null
+    },
+    {
+      "name": "hermes-agent",
+      "type": "upstream-clone",
+      "origin": "git@github.com:NousResearch/hermes-agent.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "NousResearch-hermes-agent.md",
+      "last_scanned": "2026-07-01T17:18:35+08:00",
+      "notes": null
+    },
+    {
+      "name": "hermes-skill-factory",
+      "type": "upstream-clone",
+      "origin": "git@github.com:Romanescu11/hermes-skill-factory.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "Romanescu11-hermes-skill-factory.md",
+      "last_scanned": "2026-07-01T17:18:36+08:00",
+      "notes": null
+    },
+    {
+      "name": "Houdini-Agent",
+      "type": "upstream-clone",
+      "origin": "git@github.com:Kazama-Suichiku/Houdini-Agent.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "Kazama-Suichiku-Houdini-Agent.md",
+      "last_scanned": "2026-07-01T17:18:37+08:00",
+      "notes": null
+    },
+    {
+      "name": "knowledge-catalog",
+      "type": "upstream-clone",
+      "origin": "git@github.com:GoogleCloudPlatform/knowledge-catalog.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "GoogleCloudPlatform-knowledge-catalog.md",
+      "last_scanned": "2026-07-01T17:18:39+08:00",
+      "notes": null
+    },
+    {
+      "name": "langgraph",
+      "type": "upstream-clone",
+      "origin": "git@github.com:langchain-ai/langgraph.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "langchain-ai-langgraph.md",
+      "last_scanned": "2026-07-01T17:18:39+08:00",
+      "notes": null
+    },
+    {
+      "name": "markitdown",
+      "type": "upstream-clone",
+      "origin": "git@github.com:microsoft/markitdown.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "microsoft-markitdown.md",
+      "last_scanned": "2026-07-01T17:18:42+08:00",
+      "notes": null
+    },
+    {
+      "name": "mattpocock-skills",
+      "type": "upstream-clone",
+      "origin": "git@github.com:mattpocock/skills.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "mattpocock-skills.md",
+      "last_scanned": "2026-07-01T17:18:42+08:00",
+      "notes": null
+    },
+    {
+      "name": "mem0",
+      "type": "upstream-clone",
+      "origin": "git@github.com:mem0ai/mem0.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "mem0ai-mem0.md",
+      "last_scanned": "2026-07-01T17:18:42+08:00",
       "notes": null
     },
     {
@@ -126,7 +555,40 @@
       "parent": null,
       "is_fork": false,
       "source_star": "AVIDS2-memorix.md",
-      "last_scanned": "2026-06-30T18:26:52+08:00",
+      "last_scanned": "2026-07-01T17:18:42+08:00",
+      "notes": null
+    },
+    {
+      "name": "mempalace",
+      "type": "upstream-clone",
+      "origin": "git@github.com:MemPalace/mempalace.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "MemPalace-mempalace.md",
+      "last_scanned": "2026-07-01T17:18:42+08:00",
+      "notes": null
+    },
+    {
+      "name": "mesh-splatting",
+      "type": "upstream-clone",
+      "origin": "https://github.com/meshsplatting/mesh-splatting.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "meshsplatting-mesh-splatting.md",
+      "last_scanned": "2026-07-01T17:18:42+08:00",
+      "notes": null
+    },
+    {
+      "name": "MiniMax-AI-skills",
+      "type": "upstream-clone",
+      "origin": "git@github.com:MiniMax-AI/skills.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "MiniMax-AI-skills.md",
+      "last_scanned": "2026-07-01T17:18:42+08:00",
       "notes": null
     },
     {
@@ -137,7 +599,95 @@
       "parent": null,
       "is_fork": false,
       "source_star": "HKUDS-nanobot.md",
-      "last_scanned": "2026-06-30T18:26:52+08:00",
+      "last_scanned": "2026-07-01T17:18:44+08:00",
+      "notes": null
+    },
+    {
+      "name": "nanoGPT",
+      "type": "upstream-clone",
+      "origin": "https://github.com/karpathy/nanoGPT.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "karpathy-nanoGPT.md",
+      "last_scanned": "2026-07-01T17:18:44+08:00",
+      "notes": null
+    },
+    {
+      "name": "openclaw",
+      "type": "upstream-clone",
+      "origin": "git@github.com:openclaw/openclaw.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "openclaw-openclaw.md",
+      "last_scanned": "2026-07-01T17:18:47+08:00",
+      "notes": null
+    },
+    {
+      "name": "OpenCLI",
+      "type": "upstream-clone",
+      "origin": "git@github.com:jackwener/OpenCLI.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "jackwener-OpenCLI.md",
+      "last_scanned": "2026-07-01T17:18:47+08:00",
+      "notes": null
+    },
+    {
+      "name": "openui",
+      "type": "upstream-clone",
+      "origin": "https://github.com/thesysdev/openui.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "thesysdev-openui.md",
+      "last_scanned": "2026-07-01T17:18:47+08:00",
+      "notes": null
+    },
+    {
+      "name": "pi",
+      "type": "upstream-clone",
+      "origin": "https://github.com/earendil-works/pi.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "earendil-works-pi.md",
+      "last_scanned": "2026-07-01T17:18:47+08:00",
+      "notes": null
+    },
+    {
+      "name": "planning-with-files",
+      "type": "upstream-clone",
+      "origin": "git@github.com:OthmanAdi/planning-with-files.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "OthmanAdi-planning-with-files.md",
+      "last_scanned": "2026-07-01T17:18:47+08:00",
+      "notes": null
+    },
+    {
+      "name": "ponytail",
+      "type": "upstream-clone",
+      "origin": "https://github.com/DietrichGebert/ponytail.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "DietrichGebert-ponytail.md",
+      "last_scanned": "2026-07-01T17:18:47+08:00",
+      "notes": null
+    },
+    {
+      "name": "portable-hermes-agent",
+      "type": "upstream-clone",
+      "origin": "git@github.com:aivrar/portable-hermes-agent.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "aivrar-portable-hermes-agent.md",
+      "last_scanned": "2026-07-01T17:18:48+08:00",
       "notes": null
     },
     {
@@ -148,7 +698,128 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-06-30T18:26:52+08:00",
+      "last_scanned": "2026-07-01T17:18:48+08:00",
+      "notes": null
+    },
+    {
+      "name": "rag-web-ui",
+      "type": "upstream-clone",
+      "origin": "https://github.com/rag-web-ui/rag-web-ui.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "rag-web-ui-rag-web-ui.md",
+      "last_scanned": "2026-07-01T17:18:48+08:00",
+      "notes": null
+    },
+    {
+      "name": "skill-prompt-generator",
+      "type": "upstream-clone",
+      "origin": "git@github.com:huangserva/skill-prompt-generator.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "huangserva-skill-prompt-generator.md",
+      "last_scanned": "2026-07-01T17:18:48+08:00",
+      "notes": null
+    },
+    {
+      "name": "Understand-Anything",
+      "type": "upstream-clone",
+      "origin": "git@github.com:Egonex-AI/Understand-Anything.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "Egonex-AI-Understand-Anything.md",
+      "last_scanned": "2026-07-01T17:18:52+08:00",
+      "notes": null
+    },
+    {
+      "name": "vscodium",
+      "type": "upstream-clone",
+      "origin": "git@github.com:VSCodium/vscodium.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "VSCodium-vscodium.md",
+      "last_scanned": "2026-07-01T17:18:52+08:00",
+      "notes": null
+    },
+    {
+      "name": "wx-cli",
+      "type": "upstream-clone",
+      "origin": "git@github.com:jackwener/wx-cli.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "jackwener-wx-cli.md",
+      "last_scanned": "2026-07-01T17:18:54+08:00",
+      "notes": null
+    },
+    {
+      "name": "yao-meta-skill",
+      "type": "upstream-clone",
+      "origin": "git@github.com:yaojingang/yao-meta-skill.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "yaojingang-yao-meta-skill.md",
+      "last_scanned": "2026-07-01T17:18:56+08:00",
+      "notes": null
+    },
+    {
+      "name": "langchain_demo",
+      "type": "no-remote-git",
+      "origin": null,
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-07-01T17:18:39+08:00",
+      "notes": "本地 git init 但未配置 remote"
+    },
+    {
+      "name": "reverse-website",
+      "type": "no-remote-git",
+      "origin": null,
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-07-01T17:18:48+08:00",
+      "notes": "本地 git init 但未配置 remote"
+    },
+    {
+      "name": "bazi-dev",
+      "type": "non-git",
+      "origin": null,
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-07-01T17:18:24+08:00",
+      "notes": null
+    },
+    {
+      "name": "clawdbot0403",
+      "type": "non-git",
+      "origin": null,
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-07-01T17:18:25+08:00",
+      "notes": null
+    },
+    {
+      "name": "clawdbot_for_whitenote",
+      "type": "non-git",
+      "origin": null,
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-07-01T17:18:25+08:00",
       "notes": null
     },
     {
@@ -159,7 +830,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-06-30T18:26:46+08:00",
+      "last_scanned": "2026-07-01T17:18:25+08:00",
       "notes": null
     },
     {
@@ -170,7 +841,29 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-06-30T18:26:51+08:00",
+      "last_scanned": "2026-07-01T17:18:33+08:00",
+      "notes": null
+    },
+    {
+      "name": "goldierillsite",
+      "type": "non-git",
+      "origin": null,
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-07-01T17:18:35+08:00",
+      "notes": null
+    },
+    {
+      "name": "hermes_chat",
+      "type": "non-git",
+      "origin": null,
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-07-01T17:18:37+08:00",
       "notes": null
     },
     {
@@ -181,7 +874,51 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-06-30T18:26:51+08:00",
+      "last_scanned": "2026-07-01T17:18:39+08:00",
+      "notes": null
+    },
+    {
+      "name": "openclaw-feishu",
+      "type": "non-git",
+      "origin": null,
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-07-01T17:18:47+08:00",
+      "notes": null
+    },
+    {
+      "name": "opencode",
+      "type": "non-git",
+      "origin": null,
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-07-01T17:18:47+08:00",
+      "notes": null
+    },
+    {
+      "name": "PixelStreamingInfrastructure",
+      "type": "non-git",
+      "origin": null,
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-07-01T17:18:47+08:00",
+      "notes": null
+    },
+    {
+      "name": "X",
+      "type": "non-git",
+      "origin": null,
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-07-01T17:18:54+08:00",
       "notes": null
     }
   ]
