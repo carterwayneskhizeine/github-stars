@@ -3,9 +3,9 @@
     "description": "本地 Code 文件夹的仓库清单（单一数据源）",
     "root_path": "C:\\Users\\gotmo\\Code",
     "schema_version": 1,
-    "last_full_scan": "2026-07-08T14:27:21+08:00",
+    "last_full_scan": "2026-07-11T23:51:31+08:00",
     "gh_user": "carterwayneskhizeine",
-    "last_backfill_source_star": "2026-07-04T03:50:36+08:00"
+    "last_backfill_source_star": "2026-07-10T02:48:14+08:00"
   },
   "repos": [
     {
@@ -16,7 +16,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-07-08T14:26:44+08:00",
+      "last_scanned": "2026-07-11T23:50:36+08:00",
       "notes": "gh api 失败，按 original 记录；如确认是 fork 请手动改 type"
     },
     {
@@ -27,8 +27,19 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-07-08T14:26:45+08:00",
+      "last_scanned": "2026-07-11T23:50:38+08:00",
       "notes": "gh api 失败，按 original 记录；如确认是 fork 请手动改 type"
+    },
+    {
+      "name": "ai-os-knowledge-base",
+      "type": "original",
+      "origin": "https://github.com/carterwayneskhizeine/ai-os-knowledge-base.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-07-11T23:50:39+08:00",
+      "notes": null
     },
     {
       "name": "ai-os-mcp",
@@ -38,7 +49,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-07-08T14:26:47+08:00",
+      "last_scanned": "2026-07-11T23:50:41+08:00",
       "notes": null
     },
     {
@@ -49,7 +60,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-07-08T14:26:50+08:00",
+      "last_scanned": "2026-07-11T23:50:46+08:00",
       "notes": null
     },
     {
@@ -60,7 +71,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-07-08T14:26:52+08:00",
+      "last_scanned": "2026-07-11T23:50:49+08:00",
       "notes": "gh api 失败，按 original 记录；如确认是 fork 请手动改 type"
     },
     {
@@ -71,7 +82,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-07-08T14:26:55+08:00",
+      "last_scanned": "2026-07-11T23:50:53+08:00",
       "notes": "gh api 失败，按 original 记录；如确认是 fork 请手动改 type"
     },
     {
@@ -82,7 +93,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-07-08T14:26:56+08:00",
+      "last_scanned": "2026-07-11T23:50:55+08:00",
       "notes": null
     },
     {
@@ -93,7 +104,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-07-08T14:26:57+08:00",
+      "last_scanned": "2026-07-11T23:50:56+08:00",
       "notes": "gh api 失败，按 original 记录；如确认是 fork 请手动改 type"
     },
     {
@@ -104,7 +115,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-07-08T14:26:59+08:00",
+      "last_scanned": "2026-07-11T23:50:58+08:00",
       "notes": null
     },
     {
@@ -115,7 +126,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-07-08T14:27:00+08:00",
+      "last_scanned": "2026-07-11T23:50:59+08:00",
       "notes": null
     },
     {
@@ -126,7 +137,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-07-08T14:27:01+08:00",
+      "last_scanned": "2026-07-11T23:51:02+08:00",
       "notes": null
     },
     {
@@ -137,7 +148,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-07-08T14:27:05+08:00",
+      "last_scanned": "2026-07-11T23:51:06+08:00",
       "notes": "gh api 失败，按 original 记录；如确认是 fork 请手动改 type"
     },
     {
@@ -148,7 +159,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-07-08T14:27:06+08:00",
+      "last_scanned": "2026-07-11T23:51:09+08:00",
       "notes": "gh api 失败，按 original 记录；如确认是 fork 请手动改 type"
     },
     {
@@ -159,7 +170,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-07-08T14:27:08+08:00",
+      "last_scanned": "2026-07-11T23:51:11+08:00",
       "notes": null
     },
     {
@@ -170,8 +181,19 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-07-08T14:27:11+08:00",
+      "last_scanned": "2026-07-11T23:51:15+08:00",
       "notes": "gh api 失败，按 original 记录；如确认是 fork 请手动改 type"
+    },
+    {
+      "name": "the_agents",
+      "type": "original",
+      "origin": "git@github.com:carterwayneskhizeine/the_agents.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-07-11T23:51:24+08:00",
+      "notes": null
     },
     {
       "name": "whitenote",
@@ -181,7 +203,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-07-08T14:27:17+08:00",
+      "last_scanned": "2026-07-11T23:51:26+08:00",
       "notes": "gh api 失败，按 original 记录；如确认是 fork 请手动改 type"
     },
     {
@@ -192,7 +214,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-07-08T14:27:18+08:00",
+      "last_scanned": "2026-07-11T23:51:28+08:00",
       "notes": null
     },
     {
@@ -203,7 +225,7 @@
       "parent": "CloudChef/atlasclaw",
       "is_fork": true,
       "source_star": null,
-      "last_scanned": "2026-07-08T14:26:48+08:00",
+      "last_scanned": "2026-07-11T23:50:44+08:00",
       "notes": "gh api 失败（私有/已删），靠 upstream remote 判定为 fork"
     },
     {
@@ -214,7 +236,7 @@
       "parent": "trycua/cua",
       "is_fork": true,
       "source_star": null,
-      "last_scanned": "2026-07-08T14:26:53+08:00",
+      "last_scanned": "2026-07-11T23:50:51+08:00",
       "notes": "gh api 失败（私有/已删），靠 upstream remote 判定为 fork"
     },
     {
@@ -225,7 +247,7 @@
       "parent": "EKKOLearnAI/hermes-studio",
       "is_fork": true,
       "source_star": null,
-      "last_scanned": "2026-07-08T14:27:03+08:00",
+      "last_scanned": "2026-07-11T23:51:04+08:00",
       "notes": "gh api 失败（私有/已删），靠 upstream remote 判定为 fork"
     },
     {
@@ -236,7 +258,7 @@
       "parent": "nicoladisabato/MultiAgenticRAG",
       "is_fork": true,
       "source_star": null,
-      "last_scanned": "2026-07-08T14:27:09+08:00",
+      "last_scanned": "2026-07-11T23:51:14+08:00",
       "notes": "gh api 失败（私有/已删），靠 upstream remote 判定为 fork"
     },
     {
@@ -247,7 +269,7 @@
       "parent": "Salomondiei08/oh-my-hermes",
       "is_fork": true,
       "source_star": null,
-      "last_scanned": "2026-07-08T14:27:12+08:00",
+      "last_scanned": "2026-07-11T23:51:17+08:00",
       "notes": null
     },
     {
@@ -258,7 +280,7 @@
       "parent": "microsoft/SkillOpt",
       "is_fork": true,
       "source_star": null,
-      "last_scanned": "2026-07-08T14:27:14+08:00",
+      "last_scanned": "2026-07-11T23:51:21+08:00",
       "notes": "gh api 失败（私有/已删），靠 upstream remote 判定为 fork"
     },
     {
@@ -269,7 +291,7 @@
       "parent": "Sugar-Coffee/stokowski",
       "is_fork": true,
       "source_star": null,
-      "last_scanned": "2026-07-08T14:27:16+08:00",
+      "last_scanned": "2026-07-11T23:51:22+08:00",
       "notes": "gh api 失败（私有/已删），靠 upstream remote 判定为 fork"
     },
     {
@@ -280,7 +302,7 @@
       "parent": "ruijayfeng/ziwei",
       "is_fork": true,
       "source_star": null,
-      "last_scanned": "2026-07-08T14:27:20+08:00",
+      "last_scanned": "2026-07-11T23:51:30+08:00",
       "notes": null
     },
     {
@@ -291,7 +313,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": "humanlayer-12-factor-agents.md",
-      "last_scanned": "2026-07-08T14:26:44+08:00",
+      "last_scanned": "2026-07-11T23:50:35+08:00",
       "notes": null
     },
     {
@@ -302,7 +324,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": "a2ui-project-a2ui.md",
-      "last_scanned": "2026-07-08T14:26:44+08:00",
+      "last_scanned": "2026-07-11T23:50:35+08:00",
       "notes": null
     },
     {
@@ -313,7 +335,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": "addyosmani-agent-skills.md",
-      "last_scanned": "2026-07-08T14:26:44+08:00",
+      "last_scanned": "2026-07-11T23:50:35+08:00",
       "notes": null
     },
     {
@@ -324,7 +346,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": "shadcn-labs-agentcn.md",
-      "last_scanned": "2026-07-08T14:26:44+08:00",
+      "last_scanned": "2026-07-11T23:50:35+08:00",
       "notes": null
     },
     {
@@ -335,7 +357,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": "sigoden-aichat.md",
-      "last_scanned": "2026-07-08T14:26:48+08:00",
+      "last_scanned": "2026-07-11T23:50:44+08:00",
       "notes": null
     },
     {
@@ -346,7 +368,18 @@
       "parent": null,
       "is_fork": false,
       "source_star": "Nutlope-aicommits.md",
-      "last_scanned": "2026-07-08T14:26:48+08:00",
+      "last_scanned": "2026-07-11T23:50:44+08:00",
+      "notes": null
+    },
+    {
+      "name": "AionUi",
+      "type": "upstream-clone",
+      "origin": "https://github.com/iOfficeAI/AionUi.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "iOfficeAI-AionUi.md",
+      "last_scanned": "2026-07-11T23:50:44+08:00",
       "notes": null
     },
     {
@@ -357,7 +390,18 @@
       "parent": null,
       "is_fork": false,
       "source_star": "anthropics-skills.md",
-      "last_scanned": "2026-07-08T14:26:48+08:00",
+      "last_scanned": "2026-07-11T23:50:44+08:00",
+      "notes": null
+    },
+    {
+      "name": "awesome-agent-sandboxes",
+      "type": "upstream-clone",
+      "origin": "https://github.com/dloss/awesome-agent-sandboxes.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-07-11T23:50:46+08:00",
       "notes": null
     },
     {
@@ -368,7 +412,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": "ComposioHQ-awesome-claude-skills.md",
-      "last_scanned": "2026-07-08T14:26:50+08:00",
+      "last_scanned": "2026-07-11T23:50:46+08:00",
       "notes": null
     },
     {
@@ -379,7 +423,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": "Einsia-Browser-BC.md",
-      "last_scanned": "2026-07-08T14:26:51+08:00",
+      "last_scanned": "2026-07-11T23:50:48+08:00",
       "notes": null
     },
     {
@@ -390,7 +434,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": "chatboxai-chatbox.md",
-      "last_scanned": "2026-07-08T14:26:51+08:00",
+      "last_scanned": "2026-07-11T23:50:48+08:00",
       "notes": null
     },
     {
@@ -401,7 +445,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": "CherryHQ-cherry-studio.md",
-      "last_scanned": "2026-07-08T14:26:52+08:00",
+      "last_scanned": "2026-07-11T23:50:48+08:00",
       "notes": null
     },
     {
@@ -412,7 +456,51 @@
       "parent": null,
       "is_fork": false,
       "source_star": "thedotmack-claude-mem.md",
-      "last_scanned": "2026-07-08T14:26:52+08:00",
+      "last_scanned": "2026-07-11T23:50:48+08:00",
+      "notes": null
+    },
+    {
+      "name": "codex-web",
+      "type": "upstream-clone",
+      "origin": "https://github.com/0xcaff/codex-web.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-07-11T23:50:49+08:00",
+      "notes": null
+    },
+    {
+      "name": "codex-web-ui",
+      "type": "upstream-clone",
+      "origin": "https://github.com/friuns2/codex-web-ui.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-07-11T23:50:49+08:00",
+      "notes": null
+    },
+    {
+      "name": "codexia",
+      "type": "upstream-clone",
+      "origin": "https://github.com/milisp/codexia.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-07-11T23:50:49+08:00",
+      "notes": null
+    },
+    {
+      "name": "Divination",
+      "type": "upstream-clone",
+      "origin": "git@github.com:WangLin0/Divination.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-07-11T23:50:52+08:00",
       "notes": null
     },
     {
@@ -423,7 +511,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": "apache-doris.md",
-      "last_scanned": "2026-07-08T14:26:55+08:00",
+      "last_scanned": "2026-07-11T23:50:52+08:00",
       "notes": null
     },
     {
@@ -434,7 +522,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": "lavantien-dotfiles.md",
-      "last_scanned": "2026-07-08T14:26:55+08:00",
+      "last_scanned": "2026-07-11T23:50:53+08:00",
       "notes": null
     },
     {
@@ -445,7 +533,18 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-07-08T14:26:55+08:00",
+      "last_scanned": "2026-07-11T23:50:53+08:00",
+      "notes": null
+    },
+    {
+      "name": "euphony",
+      "type": "upstream-clone",
+      "origin": "https://github.com/openai/euphony.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-07-11T23:50:53+08:00",
       "notes": null
     },
     {
@@ -456,7 +555,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": "vercel-eve.md",
-      "last_scanned": "2026-07-08T14:26:55+08:00",
+      "last_scanned": "2026-07-11T23:50:53+08:00",
       "notes": null
     },
     {
@@ -467,7 +566,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": "vercel-labs-eve-chat-template.md",
-      "last_scanned": "2026-07-08T14:26:55+08:00",
+      "last_scanned": "2026-07-11T23:50:53+08:00",
       "notes": null
     },
     {
@@ -478,7 +577,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": "yizhiyanhua-ai-fireworks-skill-memory.md",
-      "last_scanned": "2026-07-08T14:26:56+08:00",
+      "last_scanned": "2026-07-11T23:50:55+08:00",
       "notes": null
     },
     {
@@ -489,7 +588,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": "YuJunZhiXue-github-skill-forge.md",
-      "last_scanned": "2026-07-08T14:26:57+08:00",
+      "last_scanned": "2026-07-11T23:50:56+08:00",
       "notes": null
     },
     {
@@ -500,7 +599,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": "google-gemini-gemini-skills.md",
-      "last_scanned": "2026-07-08T14:27:01+08:00",
+      "last_scanned": "2026-07-11T23:51:01+08:00",
       "notes": null
     },
     {
@@ -511,7 +610,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": "google-skills.md",
-      "last_scanned": "2026-07-08T14:27:01+08:00",
+      "last_scanned": "2026-07-11T23:51:02+08:00",
       "notes": null
     },
     {
@@ -522,7 +621,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": "NousResearch-hermes-agent.md",
-      "last_scanned": "2026-07-08T14:27:01+08:00",
+      "last_scanned": "2026-07-11T23:51:02+08:00",
       "notes": null
     },
     {
@@ -533,7 +632,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": "Romanescu11-hermes-skill-factory.md",
-      "last_scanned": "2026-07-08T14:27:03+08:00",
+      "last_scanned": "2026-07-11T23:51:04+08:00",
       "notes": null
     },
     {
@@ -544,7 +643,29 @@
       "parent": null,
       "is_fork": false,
       "source_star": "Kazama-Suichiku-Houdini-Agent.md",
-      "last_scanned": "2026-07-08T14:27:05+08:00",
+      "last_scanned": "2026-07-11T23:51:06+08:00",
+      "notes": null
+    },
+    {
+      "name": "JARVIS",
+      "type": "upstream-clone",
+      "origin": "https://github.com/hyhmrright/JARVIS.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-07-11T23:51:08+08:00",
+      "notes": null
+    },
+    {
+      "name": "JJY-AI",
+      "type": "upstream-clone",
+      "origin": "git@github.com:WangLin0/JJY-AI.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-07-11T23:51:08+08:00",
       "notes": null
     },
     {
@@ -555,7 +676,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": "GoogleCloudPlatform-knowledge-catalog.md",
-      "last_scanned": "2026-07-08T14:27:06+08:00",
+      "last_scanned": "2026-07-11T23:51:08+08:00",
       "notes": null
     },
     {
@@ -566,7 +687,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": "langchain-ai-langgraph.md",
-      "last_scanned": "2026-07-08T14:27:06+08:00",
+      "last_scanned": "2026-07-11T23:51:09+08:00",
       "notes": null
     },
     {
@@ -577,7 +698,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": "microsoft-markitdown.md",
-      "last_scanned": "2026-07-08T14:27:09+08:00",
+      "last_scanned": "2026-07-11T23:51:12+08:00",
       "notes": null
     },
     {
@@ -588,7 +709,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": "mattpocock-skills.md",
-      "last_scanned": "2026-07-08T14:27:09+08:00",
+      "last_scanned": "2026-07-11T23:51:12+08:00",
       "notes": null
     },
     {
@@ -599,7 +720,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": "mem0ai-mem0.md",
-      "last_scanned": "2026-07-08T14:27:09+08:00",
+      "last_scanned": "2026-07-11T23:51:13+08:00",
       "notes": null
     },
     {
@@ -610,7 +731,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": "AVIDS2-memorix.md",
-      "last_scanned": "2026-07-08T14:27:09+08:00",
+      "last_scanned": "2026-07-11T23:51:13+08:00",
       "notes": null
     },
     {
@@ -621,7 +742,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": "MemPalace-mempalace.md",
-      "last_scanned": "2026-07-08T14:27:09+08:00",
+      "last_scanned": "2026-07-11T23:51:13+08:00",
       "notes": null
     },
     {
@@ -632,7 +753,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": "meshsplatting-mesh-splatting.md",
-      "last_scanned": "2026-07-08T14:27:09+08:00",
+      "last_scanned": "2026-07-11T23:51:13+08:00",
       "notes": null
     },
     {
@@ -643,7 +764,62 @@
       "parent": null,
       "is_fork": false,
       "source_star": "MiniMax-AI-skills.md",
-      "last_scanned": "2026-07-08T14:27:09+08:00",
+      "last_scanned": "2026-07-11T23:51:13+08:00",
+      "notes": null
+    },
+    {
+      "name": "mt-aws-db-patterns",
+      "type": "upstream-clone",
+      "origin": "https://github.com/aws-samples/multi-tenant-database-isolation-patterns.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-07-11T23:51:13+08:00",
+      "notes": null
+    },
+    {
+      "name": "mt-aws-saas-arch",
+      "type": "upstream-clone",
+      "origin": "https://github.com/aws-samples/saas-tenant-isolation-architecture.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-07-11T23:51:13+08:00",
+      "notes": null
+    },
+    {
+      "name": "mt-nextjs-boilerplate",
+      "type": "upstream-clone",
+      "origin": "https://github.com/sudharsangs/nextjs-multitenant-saas-boilerplate.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-07-11T23:51:13+08:00",
+      "notes": null
+    },
+    {
+      "name": "mt-rls-pg",
+      "type": "upstream-clone",
+      "origin": "https://github.com/jacobcantwell/multi-tenant-data-isolation-with-postgresql-row-level-security-extension.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-07-11T23:51:13+08:00",
+      "notes": null
+    },
+    {
+      "name": "mt-saas-toolkit",
+      "type": "upstream-clone",
+      "origin": "https://github.com/lanemc/multi-tenant-saas-toolkit.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-07-11T23:51:14+08:00",
       "notes": null
     },
     {
@@ -654,7 +830,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": "HKUDS-nanobot.md",
-      "last_scanned": "2026-07-08T14:27:10+08:00",
+      "last_scanned": "2026-07-11T23:51:15+08:00",
       "notes": null
     },
     {
@@ -665,7 +841,29 @@
       "parent": null,
       "is_fork": false,
       "source_star": "karpathy-nanoGPT.md",
-      "last_scanned": "2026-07-08T14:27:10+08:00",
+      "last_scanned": "2026-07-11T23:51:15+08:00",
+      "notes": null
+    },
+    {
+      "name": "open-design",
+      "type": "upstream-clone",
+      "origin": "git@github.com:nexu-io/open-design.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "nexu-io-open-design.md",
+      "last_scanned": "2026-07-11T23:51:18+08:00",
+      "notes": null
+    },
+    {
+      "name": "open-webui",
+      "type": "upstream-clone",
+      "origin": "https://github.com/open-webui/open-webui.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "open-webui-open-webui.md",
+      "last_scanned": "2026-07-11T23:51:19+08:00",
       "notes": null
     },
     {
@@ -676,7 +874,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": "openclaw-openclaw.md",
-      "last_scanned": "2026-07-08T14:27:13+08:00",
+      "last_scanned": "2026-07-11T23:51:19+08:00",
       "notes": null
     },
     {
@@ -687,7 +885,18 @@
       "parent": null,
       "is_fork": false,
       "source_star": "jackwener-OpenCLI.md",
-      "last_scanned": "2026-07-08T14:27:13+08:00",
+      "last_scanned": "2026-07-11T23:51:19+08:00",
+      "notes": null
+    },
+    {
+      "name": "OpenShell",
+      "type": "upstream-clone",
+      "origin": "git@github.com:NVIDIA/OpenShell.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-07-11T23:51:19+08:00",
       "notes": null
     },
     {
@@ -698,7 +907,29 @@
       "parent": null,
       "is_fork": false,
       "source_star": "thesysdev-openui.md",
-      "last_scanned": "2026-07-08T14:27:13+08:00",
+      "last_scanned": "2026-07-11T23:51:19+08:00",
+      "notes": null
+    },
+    {
+      "name": "OpenWebUI",
+      "type": "upstream-clone",
+      "origin": "https://github.com/OVINC-CN/OpenWebUI.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": "open-webui-open-webui.md",
+      "last_scanned": "2026-07-11T23:51:19+08:00",
+      "notes": null
+    },
+    {
+      "name": "Personal-Knowledge-Base",
+      "type": "upstream-clone",
+      "origin": "git@github.com:WangLin0/Personal-Knowledge-Base.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-07-11T23:51:19+08:00",
       "notes": null
     },
     {
@@ -709,7 +940,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": "earendil-works-pi.md",
-      "last_scanned": "2026-07-08T14:27:13+08:00",
+      "last_scanned": "2026-07-11T23:51:20+08:00",
       "notes": null
     },
     {
@@ -720,7 +951,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": "OthmanAdi-planning-with-files.md",
-      "last_scanned": "2026-07-08T14:27:14+08:00",
+      "last_scanned": "2026-07-11T23:51:20+08:00",
       "notes": null
     },
     {
@@ -731,7 +962,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": "DietrichGebert-ponytail.md",
-      "last_scanned": "2026-07-08T14:27:14+08:00",
+      "last_scanned": "2026-07-11T23:51:20+08:00",
       "notes": null
     },
     {
@@ -742,7 +973,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": "aivrar-portable-hermes-agent.md",
-      "last_scanned": "2026-07-08T14:27:14+08:00",
+      "last_scanned": "2026-07-11T23:51:20+08:00",
       "notes": null
     },
     {
@@ -753,7 +984,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-07-08T14:27:14+08:00",
+      "last_scanned": "2026-07-11T23:51:20+08:00",
       "notes": null
     },
     {
@@ -764,7 +995,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": "rag-web-ui-rag-web-ui.md",
-      "last_scanned": "2026-07-08T14:27:14+08:00",
+      "last_scanned": "2026-07-11T23:51:20+08:00",
       "notes": null
     },
     {
@@ -775,7 +1006,18 @@
       "parent": null,
       "is_fork": false,
       "source_star": "huangserva-skill-prompt-generator.md",
-      "last_scanned": "2026-07-08T14:27:14+08:00",
+      "last_scanned": "2026-07-11T23:51:20+08:00",
+      "notes": null
+    },
+    {
+      "name": "tiledesk",
+      "type": "upstream-clone",
+      "origin": "https://github.com/Tiledesk/tiledesk.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-07-11T23:51:26+08:00",
       "notes": null
     },
     {
@@ -786,7 +1028,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": "Egonex-AI-Understand-Anything.md",
-      "last_scanned": "2026-07-08T14:27:17+08:00",
+      "last_scanned": "2026-07-11T23:51:26+08:00",
       "notes": null
     },
     {
@@ -797,7 +1039,18 @@
       "parent": null,
       "is_fork": false,
       "source_star": "VSCodium-vscodium.md",
-      "last_scanned": "2026-07-08T14:27:17+08:00",
+      "last_scanned": "2026-07-11T23:51:26+08:00",
+      "notes": null
+    },
+    {
+      "name": "weevean",
+      "type": "upstream-clone",
+      "origin": "https://github.com/Emmaccen/weevean.git",
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-07-11T23:51:26+08:00",
       "notes": null
     },
     {
@@ -808,7 +1061,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": "jackwener-wx-cli.md",
-      "last_scanned": "2026-07-08T14:27:18+08:00",
+      "last_scanned": "2026-07-11T23:51:28+08:00",
       "notes": null
     },
     {
@@ -819,7 +1072,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": "yaojingang-yao-meta-skill.md",
-      "last_scanned": "2026-07-08T14:27:20+08:00",
+      "last_scanned": "2026-07-11T23:51:29+08:00",
       "notes": null
     },
     {
@@ -830,7 +1083,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-07-08T14:27:06+08:00",
+      "last_scanned": "2026-07-11T23:51:09+08:00",
       "notes": "本地 git init 但未配置 remote"
     },
     {
@@ -841,8 +1094,19 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-07-08T14:27:14+08:00",
+      "last_scanned": "2026-07-11T23:51:20+08:00",
       "notes": "本地 git init 但未配置 remote"
+    },
+    {
+      "name": "123",
+      "type": "non-git",
+      "origin": null,
+      "upstream": null,
+      "parent": null,
+      "is_fork": false,
+      "source_star": null,
+      "last_scanned": "2026-07-11T23:50:35+08:00",
+      "notes": null
     },
     {
       "name": "bazi-dev",
@@ -852,7 +1116,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-07-08T14:26:51+08:00",
+      "last_scanned": "2026-07-11T23:50:48+08:00",
       "notes": null
     },
     {
@@ -863,7 +1127,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-07-08T14:26:52+08:00",
+      "last_scanned": "2026-07-11T23:50:48+08:00",
       "notes": null
     },
     {
@@ -874,7 +1138,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-07-08T14:26:52+08:00",
+      "last_scanned": "2026-07-11T23:50:49+08:00",
       "notes": null
     },
     {
@@ -885,7 +1149,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-07-08T14:26:52+08:00",
+      "last_scanned": "2026-07-11T23:50:49+08:00",
       "notes": null
     },
     {
@@ -896,7 +1160,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-07-08T14:26:59+08:00",
+      "last_scanned": "2026-07-11T23:50:58+08:00",
       "notes": null
     },
     {
@@ -907,7 +1171,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-07-08T14:27:05+08:00",
+      "last_scanned": "2026-07-11T23:51:06+08:00",
       "notes": null
     },
     {
@@ -918,7 +1182,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-07-08T14:27:06+08:00",
+      "last_scanned": "2026-07-11T23:51:09+08:00",
       "notes": null
     },
     {
@@ -929,7 +1193,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-07-08T14:27:13+08:00",
+      "last_scanned": "2026-07-11T23:51:19+08:00",
       "notes": null
     },
     {
@@ -940,7 +1204,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-07-08T14:27:13+08:00",
+      "last_scanned": "2026-07-11T23:51:19+08:00",
       "notes": null
     },
     {
@@ -951,7 +1215,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-07-08T14:27:14+08:00",
+      "last_scanned": "2026-07-11T23:51:20+08:00",
       "notes": null
     },
     {
@@ -962,7 +1226,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-07-08T14:27:17+08:00",
+      "last_scanned": "2026-07-11T23:51:24+08:00",
       "notes": null
     },
     {
@@ -973,7 +1237,7 @@
       "parent": null,
       "is_fork": false,
       "source_star": null,
-      "last_scanned": "2026-07-08T14:27:18+08:00",
+      "last_scanned": "2026-07-11T23:51:28+08:00",
       "notes": null
     }
   ]
