@@ -1,0 +1,260 @@
+<!-- project-home:start -->
+![Hermes for Excel concept banner](site/hero.png)
+
+**[Hermes for Excel project homepage](https://lewfkrad.github.io/hermes-excel-sidecar/)** · [Documentation](https://github.com/lEWFkRAD/hermes-excel-sidecar#run)
+
+Read across sheets, work with formulas, and review changes with Hermes inside Excel.
+
+<!-- project-home:end -->
+
+# Hermes for Excel
+
+[![CI](https://github.com/lEWFkRAD/hermes-excel-sidecar/actions/workflows/ci.yml/badge.svg)](https://github.com/lEWFkRAD/hermes-excel-sidecar/actions/workflows/ci.yml)
+[![Release](https://github.com/lEWFkRAD/hermes-excel-sidecar/actions/workflows/release.yml/badge.svg)](https://github.com/lEWFkRAD/hermes-excel-sidecar/actions/workflows/release.yml)
+
+This is an independently packaged Hermes plugin. Reliable typed Excel chat
+requires the Hermes runtime capability described in
+[Runtime compatibility](compat/README.md); older runtimes need the supplied
+companion patch before enabling this version. The original integration lineage remains at
+[NousResearch/hermes-agent#44356](https://github.com/NousResearch/hermes-agent/pull/44356).
+Read [CONTRIBUTING.md](CONTRIBUTING.md), [AGENTS.md](AGENTS.md), and
+[SECURITY.md](SECURITY.md) before contributing or deploying. Release history and
+the maintainer procedure live in [CHANGELOG.md](CHANGELOG.md) and
+[RELEASING.md](RELEASING.md).
+
+This standalone repository is the release source of truth. The historical
+`apps/excel` copy inside a Hermes monorepo is not a packaging input and must
+not be used to overwrite this plugin.
+
+A local Excel sidecar for Hermes: an Office.js task pane plus a small
+zero-dependency Node bridge that connects a live workbook to the Hermes
+`api_server` platform. Chat with Hermes in a side panel while it reads sheet
+data, writes tables and formulas, formats ranges, and parses attached
+documents — without ever touching your filesystem.
+
+```
+Excel task pane (Office.js)  →  bridge :8788 (node, no deps)  →  Hermes api_server :8642/v1
+```
+
+See [PROTOCOL.md](./PROTOCOL.md) for the full bridge protocol, the actions
+schema, the read loop, and the formula-anchoring contract.
+
+## Features
+
+- **Model-first chat** with per-workbook conversation memory (last 12 turns,
+  persists across pane reopens) and a Clear button.
+- **Workbook actions**: write cells, create formatted sheets, apply styles,
+  perform typed structural operations — all via a structured JSON contract, applied by the
+  pane, never by agent tools.
+- **Cross-sheet reads**: Hermes sees every sheet's used range and can request
+  cell values (`read_range`, up to 5 rounds) for tie-outs and reconciliations.
+- **Correct formula placement**: the model authors table formulas A1-relative;
+  the bridge rebases them to wherever the table lands (`=B2*C2` written at
+  H23 becomes `=I24*J24`; `$`-anchors and cross-sheet refs are never shifted).
+- **Post-write verification**: the pane re-reads written ranges and warns on
+  error cells or all-zero formula columns.
+- **Undo** (last 10 changes), **Cancel** for in-flight requests, and an
+  optional **review-before-apply** mode (Apply/Discard per change set).
+- **Attachments**: drag/drop PDF/Office/CSV/text/images; TXT/CSV parse
+  locally, the rest through a [Docling](https://github.com/docling-project/docling)
+  service when available.
+- **Honest failures**: if the model is unreachable, the bridge explains what
+  failed — it never writes invented numbers into a workbook.
+- **JSON resilience**: stray/missing-bracket repair plus one corrective retry
+  for near-valid model output.
+
+## Requirements
+
+Attachments support up to **100 MiB per file**, **150 MiB combined per message**,
+and 12 files. The chat request ceiling is 210 MiB to accommodate base64 encoding
+and workbook context; export requests retain their smaller limit. Large PDFs
+still require a working attachment parser, and extraction/context limits remain
+in effect. Upload acceptance does not mean every page is included in model context.
+
+- Excel with ExcelApi 1.1+ and a modern webview, with add-in sideloading allowed.
+  Optional operations are gated at 1.2, 1.6 and 1.7 before any changes apply.
+  See [Excel compatibility](EXCEL-COMPATIBILITY.md) for Windows 2016/2019/2021/2024,
+  Microsoft 365, Mac and web targets, browser limitations, and testing gaps.
+  Automated installation is Windows-only; Mac remains a manual qualification target.
+- Node.js 20+ on PATH (matching `package.json` and the supported CI matrix).
+- A running Hermes gateway with the `api_server` platform enabled on
+  `http://127.0.0.1:8642/v1` (`hermes gateway run`). The key is read automatically
+  from the Hermes `config.yaml` for your platform (Windows `%LOCALAPPDATA%\hermes`,
+  macOS `~/Library/Application Support/hermes`, Linux `$XDG_CONFIG_HOME/hermes`);
+  set `HERMES_EXCEL_LLM_API_KEY` to override.
+- **Tool containment (defense-in-depth)**: the bridge NEVER executes model tool
+  calls — only the workbook-actions JSON it returns — so the agent's tools are
+  already inert here. Still, run the api_server platform with
+  file/terminal/code-execution toolsets disabled so nothing runs agent-side either:
+
+  ```yaml
+  # config.yaml
+  platform_toolsets:
+    api_server:
+      - skills
+      - memory
+      - vision
+  ```
+
+- Optional: [Docling](https://github.com/docling-project/docling) for
+  PDF/DOCX/XLSX/image parsing. Set `HERMES_EXCEL_DOCLING_MODE` to match how it runs
+  relative to the bridge: `wsl` (default on Windows — Docling in WSL), `native`
+  (shares this host's filesystem), or `docker` (mounted). Default is `native` off
+  Windows.
+
+## Run
+
+Install the plugin directly from GitHub:
+
+```powershell
+hermes plugins install lEWFkRAD/hermes-excel-sidecar --enable
+hermes excel-sidecar check
+hermes excel-sidecar install
+hermes excel-sidecar status
+```
+
+### Hermes profiles on Windows
+
+The lifecycle commands use the profile selected by Hermes at invocation time.
+For example, a named profile installs into its own home and must use the same
+profile for later status or rollback operations:
+
+```powershell
+hermes -p finance excel-sidecar install
+hermes -p finance excel-sidecar status
+hermes -p finance excel-sidecar rollback
+```
+
+The payload, configuration, tokens, uploads, exports, and logs are
+profile-scoped. Office sideload registration, the `Hermes_Excel_Bridge`
+Scheduled Task, and the localhost bridge remain Windows-user singletons, so
+exactly one profile may own them at a time. A strict receipt under
+`%LOCALAPPDATA%\hermes\shared\excel-sidecar` records that owner. Commands from
+another profile fail before reading credentials or changing singleton state;
+the running bridge also attests its profile and receipt fingerprint over its
+authenticated HTTPS health endpoint.
+
+An existing pre-receipt installation is never claimed implicitly. After
+verifying that every legacy artifact belongs to the selected profile, adopt it
+once with `hermes -p <profile> excel-sidecar install --adopt-legacy`. Automatic
+takeover between profiles is intentionally unsupported; roll back the current
+owner first.
+
+To remove the per-user Excel installation without uninstalling the plugin:
+
+```powershell
+hermes excel-sidecar rollback
+```
+
+For development, use a disposable Hermes profile that owns the Windows-user
+singleton, then reinstall from the working tree as you iterate:
+
+```powershell
+hermes -p excel-dev excel-sidecar install
+hermes -p excel-dev excel-sidecar status
+```
+
+A bare `node broker\server.mjs` launch can still serve static assets for UI
+work, but chat and export APIs intentionally fail closed unless the process was
+launched with an installed profile's receipt identity and token files.
+
+Then sideload in Excel: **Home → Add-ins → More Add-ins → Upload My Add-in →
+`manifest.xml`**, and open the pane from the **Hermes** ribbon group.
+
+Runtime configuration uses launcher-managed identity/secrets plus these
+environment tunables (defaults shown):
+
+```text
+PORT=8788
+HERMES_EXCEL_DATA_DIR=                     # uploads/exports/logs root, OUTSIDE the web root (default: per-user app-data)
+HERMES_EXCEL_BRIDGE_TOKEN=                 # launcher-only: loaded from owning profile data/.bridge-token
+HERMES_EXCEL_INGEST_TOKEN=                 # launcher-only: loaded from owning profile data/.ingest-token
+HERMES_EXCEL_TRANSPORT=platform-only       # installed/certified default
+HERMES_EXCEL_ALLOW_RAW_FALLBACK=0          # explicit emergency compatibility escape hatch only
+HERMES_EXCEL_ALLOWED_ORIGINS=              # extra comma-separated CORS origins (loopback origins always allowed)
+HERMES_EXCEL_LLM_BASE_URL=http://127.0.0.1:8642/v1
+HERMES_EXCEL_LLM_MODEL=hermes-agent
+HERMES_EXCEL_LLM_API_KEY=                  # auto-read from the platform Hermes config.yaml if unset
+HERMES_EXCEL_LLM_TIMEOUT_MS=180000         # per model call
+HERMES_EXCEL_LLM_REQUEST_BUDGET_MS=420000  # end-to-end deadline per /api/chat (Docling + all retries)
+HERMES_EXCEL_LLM_MAX_TOKENS=8000
+HERMES_EXCEL_MAX_PROMPT_CHARS=180000       # assembled-prompt cap (trims oldest history first)
+HERMES_EXCEL_LOCK_TOOLS=                   # 1 => also send tool_choice:none to the gateway
+HERMES_EXCEL_DOCLING_URL=http://127.0.0.1:8200
+HERMES_EXCEL_DOCLING_MODE=                 # wsl | native | docker (default: wsl on Windows, else native)
+HERMES_EXCEL_WSL_DISTRO=Ubuntu-24.04       # used only when DOCLING_MODE=wsl
+HERMES_EXCEL_DOCLING_OUTPUT_DIR=           # required for path-return results; canonical paths must remain under it
+HERMES_EXCEL_MAX_EXTRACTED_CHARS_PER_FILE=32000
+HERMES_EXCEL_MAX_EXTRACTED_CHARS_TOTAL=96000
+HERMES_EXCEL_MAX_UPLOAD_BYTES=26214400     # 25 MB per attachment
+HERMES_EXCEL_MAX_UPLOAD_FILES=12
+HERMES_EXCEL_UPLOADS_TTL_MS=604800000
+HERMES_EXCEL_DISABLE_CSP=                  # 1 => omit the pane Content-Security-Policy (troubleshooting only)
+```
+
+The bridge binds 127.0.0.1 only, serves **only** the pane's own files (never the
+broker source, uploads, exports, or manifest), restricts CORS to an origin
+allowlist, rejects foreign `Host` headers, and — when a token is set — requires it
+on every `/api/*` call. The api_server key autodetect is cross-platform.
+
+### Fleet install (Windows)
+
+For an unattended per-box install — Node bootstrap, an autostarting bridge
+supervisor, Office sideload registration, and a post-install health check — see
+[install/README.md](./install/README.md):
+
+```powershell
+powershell -ExecutionPolicy Bypass -File install\apply.ps1
+```
+
+The installer selects the first available port starting at `8788`, rewrites the
+sideloaded manifest to match, and fails if an explicitly requested port belongs
+to another service. Autostart uses one tracked Scheduled Task supervisor.
+
+### Canonical source and deployment
+
+This plugin directory is the authoritative source. The per-user
+`%LOCALAPPDATA%\hermes\excel-addin` directory is a generated runtime copy; keep
+its `data` directory and machine-specific launchers out of source control.
+
+Run the full local gate and deploy tracked files with:
+
+```powershell
+npm run verify
+npm run deploy
+```
+
+The deploy script runs the gate again, copies only Git-tracked files, preserves
+runtime data and tokens, and verifies every copied hash. Service restarts are
+explicit opt-ins: `install\deploy.ps1 -RestartBridge -RestartGateway`.
+
+## Tests
+
+Dependency-free, no install step:
+
+```powershell
+node --test broker\server.test.mjs     # 39 unit tests (parsing, actions, formula rebasing, model-retry branches)
+node broker\smoke.mjs                  # live regression + security cases against a running bridge
+```
+
+The root `package.json` supplies validation commands only; the bridge retains
+zero runtime npm dependencies. Run the same required checks as CI with
+`npm run validate`.
+
+## Notes
+
+- Attachment temp files and explicit CSV exports land under `HERMES_EXCEL_DATA_DIR`
+  (`uploads/`, pruned after 7 days; `exports/`) — a per-user directory **outside**
+  the HTTP-served root, so neither is ever reachable over HTTP. `/api/export` is the
+  bridge's only file-writing path and runs only on an explicit export action.
+- The default output style is tuned for accounting/finance tables (header
+  rows, total rows, currency formats, formulas over hardcoded totals); see the
+  system prompt in `broker/server.mjs` to adjust.
+
+## Workbook preservation and bounded selection reads
+
+In-place `write_cells` operations preserve existing cell formatting and layout, even when `auto_format` is requested. New-sheet output remains automatically styled; explicit formatting actions are still available separately. Hermes Undo checks the worksheet identity, formulas, and number formats against the applied result and refuses to overwrite subsequent edits. It does not clear existing formatting.
+
+Selection context keeps the original address and dimensions but reads at most 100 rows by 16 columns, with a `truncated` flag for larger selections. Rollback verifies task removal, stops the exact bridge supervisor and child process paths, and refuses further cleanup if those processes survive.
+
+`npm run verify` includes task-pane behavior regressions and simulated PowerShell process-cleanup tests. Python protocol tests require the Hermes gateway runtime; run with that runtime's Python and the Hermes repository on `PYTHONPATH` to avoid a skipped suite. Task-pane tests use mocked Office.js objects and do not certify live Excel behavior.
