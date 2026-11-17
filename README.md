@@ -153,38 +153,6 @@ jq 'to_entries | map(select(.key | contains("llm"))) | from_entries' data/stars_
 目录做全文搜索即可。所有 README 都是纯文本，本地搜索比 GitHub 网页
 搜索快得多。
 
-## trending-readme：WhiteNote Trending 合集下载
-
-`download_trending.py` 是 `download_stars.py` 的姊妹脚本：**下载方法完全一样**
-（`gh api repos/{owner}/{repo}/readme` → base64 解码 → 存 `Owner-Repo.md`），
-但数据源和保存路径不同——它从 WhiteNote 分享帖里提到的 GitHub Trending
-月度合集提取 repo 清单，README 存到仓库根目录的 **`trending-readme/`**，
-并维护独立的对照表与状态文件：
-
-| 文件 | 作用 |
-| --- | --- |
-| `data/trending_urls.json` | 从分享帖提取的 `owner/repo` 清单（带 `_source` 出处和时间戳） |
-| `data/trending_mapping.json` | `trending-readme/` 文件名 → GitHub URL 对照表 |
-| `data/trending_state.json` | 确认过「没有 README / 下载失败」的 repo，避免重复请求 |
-
-```bash
-# 第一次跑：默认只下 10 个
-python download_trending.py
-
-# 全量下载清单上的所有 repo（约 350 个，几分钟）
-python download_trending.py --all
-
-# 分享帖更新后重新提取清单再增量下载
-python download_trending.py --refresh-list --all
-
-# 忽略缓存，全部重新下载
-python download_trending.py --include-known
-```
-
-脚本是幂等增量的：磁盘上已有的文件直接跳过，失败/无 README 的记入 state；
-repo 清单缓存在本地，离线也能增量补下。反查方式和 `stars_mapping.json`
-相同（value 就是原始 GitHub URL）。
-
 ## 常见问题
 
 **Q：网络断了 / 脚本被 Ctrl-C 中断了怎么办？**
